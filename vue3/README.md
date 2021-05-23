@@ -8,8 +8,13 @@ vue create vue3
 ## Project setup
 ```
 cd vue3
-yarn add --save vue-router vuex vuex-persistedstate
-yarn add --save axios vue-axios
+yarn add vue-router@next
+yarn add bootstrap@next @popperjs/core
+yarn add vuex@4.0.0 vuex-persistedstate@4.0.0-beta.3
+yarn add axios vue-axios
+yarn add vue-loading-overlay
+
+#yarn add --save axios vue-axios
 ## vue-loading-template -> Suspense
 ```
 
