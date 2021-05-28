@@ -1,13 +1,13 @@
-package biz.next_evolution.biz.next_evolution.stub;
+package com.example.demo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class StubApplication {
+public class DemoApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(StubApplication.class, args);
+		SpringApplication.run(DemoApplication.class, args);
 	}
 
 }
