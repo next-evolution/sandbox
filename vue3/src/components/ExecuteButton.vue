@@ -1,32 +1,21 @@
 <template>
-    <div id="executeButton">
-      <Loading
-        :active="loading"
-        :can-cancel="true"
-        :is-full-page="true"></Loading>
-      <button
-          type="submit"
-          v-show="!loading"
-          class="btn btn-primary"
-          v-on:click="buttonClick">{{getLabel}}</button>
-    </div>
+  <button
+      type="submit"
+      class="btn btn-primary form-control"
+      v-on:click="buttonClick">{{getLabel}}</button>
 </template>
 
 <script>
-import Loading from 'vue-loading-overlay'
 
 export default {
   name: 'ExecuteButton',
-  components: {
-    Loading
-  },
   data: function () {
     return {
       variant: '',
       label: ''
     }
   },
-  props: ['type', 'loading'],
+  props: ['type'],
   computed: {
     getLabel: function () {
       switch (this.type) {

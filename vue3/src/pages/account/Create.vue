@@ -1,6 +1,6 @@
 <template>
   <div id="mainContent">
-    <Navigator back-page="/" />
+    <Navigator :loading="isLoading" />
     <div class="container">
     <div id="resultMessage">{{resultMessage}}</div>
     <div v-show="!isInput">
@@ -29,8 +29,7 @@
             ref="emailAddress"
             v-model="emailAddress"
             v-focus
-            maxlength="128"
-          />
+            maxlength="128"/>
         </div>
         <div class="col-sm-2"></div>
       </div>
@@ -46,8 +45,7 @@
             id="familyName"
             ref="familyName"
             v-model="familyName"
-            maxlength="64"
-          />
+            maxlength="64"/>
         </div>
         <div class="col-sm-3">
           <input
@@ -56,8 +54,7 @@
             id="firstName"
             ref="firstName"
             v-model="firstName"
-            maxlength="64"
-          />
+            maxlength="64"/>
         </div>
         <div class="col-sm-4" style="text-align: left;">例）在日 悪子</div>
       </div>
@@ -73,8 +70,7 @@
             id="familyNameEn"
             ref="familyNameEn"
             v-model="familyNameEn"
-            maxlength="64"
-          />
+            maxlength="64"/>
         </div>
         <div class="col-sm-3">
           <input
@@ -83,8 +79,7 @@
             id="firstNameEn"
             ref="firstNameEn"
             v-model="firstNameEn"
-            maxlength="64"
-          />
+            maxlength="64"/>
         </div>
         <div class="col-sm-4" style="text-align: left;">例）zainichi waruko</div>
       </div>
@@ -123,16 +118,14 @@
             id="loginPassword"
             ref="loginPassword"
             v-model="loginPassword"
-            maxlength="64"
-          />
+            maxlength="64"/>
           <input
             type="password"
             class="form-control"
             id="checkPassword"
             ref="checkPassword"
             v-model="checkPassword"
-            maxlength="64"
-          />
+            maxlength="64"/>
         </div>
         <div class="col-sm-4" style="text-align: left;">
           <br />
@@ -142,8 +135,8 @@
       <hr />
       <div class="row" align-v="center" align-h="start">
         <div class="col-sm-2"></div>
-        <div>
-          <ExecuteButton type="insert" :loading="isLoading" @buttonClick="insertApi" />
+        <div class="col-sm-2">
+          <ExecuteButton type="insert" @buttonClick="insertApi" />
         </div>
       </div>
     </div>
@@ -284,6 +277,7 @@ export default {
           console.log(response)
           if (vm.apiInfo.messageCode === response.data.messageCode) {
             vm.isInput = false
+            vm.$router.push('/account/activation')
           }
           vm.resultMessage = response.data.messageText
           alert(response.data.messageText)

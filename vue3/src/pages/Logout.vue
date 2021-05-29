@@ -1,11 +1,7 @@
 <template>
   <div id="mainContainer">
-    <Navigator />
-    <Loading
-      :active="isLoading"
-      :can-cancel="true"
-      :is-full-page="true"></Loading>
-    <div v-show="!isLoading">
+    <Navigator :loading="isLoading" />
+    <div class="container" v-show="!isLoading">
       <h3>ログアウトしました。</h3>
       <router-link to="/">HOME</router-link>
     </div>
@@ -14,11 +10,10 @@
 
 <script>
 import Navigator from '@/components/Navigator.vue'
-import Loading from 'vue-loading-overlay'
 
 export default {
   name: 'Logout',
-  components: { Navigator, Loading },
+  components: { Navigator },
   data: function () {
     return {
       apiInfo: {
