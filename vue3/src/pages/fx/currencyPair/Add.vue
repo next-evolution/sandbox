@@ -1,7 +1,7 @@
 <template>
   <div id="mainContent">
     <Navigator :back-page="backPage" :loading="isLoading" />
-    <div id="resultMessage">{{resultMessage}}</div>
+    <div id="resultMessage">{{ resultMessage }}</div>
     <div v-show="!isInput">
       <router-link :to="backPage">戻る</router-link>
       <br />
@@ -17,13 +17,7 @@
           <label for="currencyPairCode" class="control-label text-nowrap">通貨ペア</label>
         </div>
         <div class="col-sm-2">
-          <input
-            type="tel"
-            id="currencyPairCode"
-            ref="currencyPairCode"
-            v-model="currencyPair.currencyPairCode"
-            class="form-control"
-            maxlength="8"/>
+          <input type="tel" id="currencyPairCode" ref="currencyPairCode" v-model="currencyPair.currencyPairCode" class="form-control" maxlength="8" />
         </div>
       </div>
       <hr />
@@ -32,13 +26,7 @@
           <label for="currencyPairName" class="control-label text-nowrap">通貨ペア名称</label>
         </div>
         <div class="col-sm-3">
-          <input
-            type="text"
-            id="currencyPairName"
-            ref="currencyPairName"
-            v-model="currencyPair.currencyPairName"
-            class="form-control"
-            maxlength="64"/>
+          <input type="text" id="currencyPairName" ref="currencyPairName" v-model="currencyPair.currencyPairName" class="form-control" />
         </div>
       </div>
       <hr />
@@ -47,14 +35,7 @@
           <label for="profitVolatility" class="control-label text-nowrap">警告値幅</label>
         </div>
         <div class="col-sm-2">
-          <input
-            type="tel"
-            id="profitVolatility"
-            ref="profitVolatility"
-            v-model="currencyPair.profitVolatility"
-            class="form-control"
-            maxlength="10"
-          />
+          <input type="tel" id="profitVolatility" ref="profitVolatility" v-model="currencyPair.profitVolatility" class="form-control" />
         </div>
       </div>
       <hr />
@@ -63,20 +44,14 @@
           <label for="sortOrder" class="control-label text-nowrap">SortOrder</label>
         </div>
         <div class="col-sm-2">
-          <input
-            type="tel"
-            id="sortOrder"
-            ref="sortOrder"
-            v-model="currencyPair.sortOrder"
-            class="form-control"
-            maxlength="5"/>
+          <input type="tel" id="sortOrder" ref="sortOrder" v-model="currencyPair.sortOrder" class="form-control" maxlength="5" />
         </div>
       </div>
       <hr />
       <div class="row" align-v="center" align-h="start">
         <div class="col-sm-2"></div>
-        <div class="col-sm-2">
-          <ExecuteButton type="insert" :loading="isLoading" @buttonClick="insertApi" />
+        <div class="col-auto">
+          <ExecuteButton type="insert" @buttonClick="insertApi" />
         </div>
       </div>
     </div>
@@ -84,14 +59,14 @@
 </template>
 
 <script>
-import Navigator from '@/components/Navigator.vue'
-import ExecuteButton from '@/components/ExecuteButton.vue'
+import Navigator from '@/components/Navigator.vue';
+import ExecuteButton from '@/components/ExecuteButton.vue';
 
 export default {
   name: 'FxCurrencyPairAdd',
   components: {
     Navigator,
-    ExecuteButton
+    ExecuteButton,
   },
   data: function () {
     return {
@@ -99,7 +74,7 @@ export default {
       apiInfo: {
         apiCode: 'FX10030',
         url: this.getApiUrl('/fx/currencyPair/insert'),
-        messageCode: 'ZZ20040-I0'
+        messageCode: 'ZZ20040-I0',
       },
 
       isLoading: false,
@@ -111,7 +86,7 @@ export default {
         currencyPairCode: '',
         currencyPairName: '',
         profitVolatility: '',
-        sortOrder: ''
+        sortOrder: '',
       },
 
       apiResponse: {
@@ -120,87 +95,87 @@ export default {
         returnCode: 0,
         recordCount: 0,
         messageCode: '',
-        messageText: ''
-      }
-    }
+        messageText: '',
+      },
+    };
   },
   mounted: async function () {
-    this.csrfToken = await this.getCsrfToken(this)
+    this.csrfToken = await this.getCsrfToken(this);
   },
   methods: {
     initialize: async function () {
-      this.isLoading = true
+      this.isLoading = true;
 
-      this.isInput = true
-      this.currencyPair.currencyPairCode = ''
-      this.currencyPair.currencyPairName = ''
-      this.currencyPair.profitVolatility = ''
-      this.currencyPair.sortOrder = ''
+      this.isInput = true;
+      this.currencyPair.currencyPairCode = '';
+      this.currencyPair.currencyPairName = '';
+      this.currencyPair.profitVolatility = '';
+      this.currencyPair.sortOrder = '';
 
-      this.resultMessage = ''
+      this.resultMessage = '';
 
-      this.csrfToken = await this.getCsrfToken(this)
+      this.csrfToken = await this.getCsrfToken(this);
     },
     insertApi: function () {
       if (this.isEmpty(this.currencyPair.currencyPairCode)) {
-        alert('input currencyPair.')
-        this.$refs.currencyPairCode.focus()
-        return
+        alert('input currencyPair.');
+        this.$refs.currencyPairCode.focus();
+        return;
       }
       if (!this.isCurrencyPair(this.currencyPair.currencyPairCode)) {
-        alert('not currencyPair.')
-        this.$refs.currencyPairCode.focus()
-        return
+        alert('not currencyPair.');
+        this.$refs.currencyPairCode.focus();
+        return;
       }
       if (this.isEmpty(this.currencyPair.currencyPairName)) {
-        alert('input currencyPairName.')
-        this.$refs.currencyPairName.focus()
-        return
+        alert('input currencyPairName.');
+        this.$refs.currencyPairName.focus();
+        return;
       }
       if (!this.isPrice(this.currencyPair.profitVolatility)) {
-        alert('volatility is not price.')
-        this.$refs.profitVolatility.focus()
-        return
+        alert('volatility is not price.');
+        this.$refs.profitVolatility.focus();
+        return;
       }
       if (!this.isNumber(this.currencyPair.sortOrder)) {
-        alert('sortOrder is Number.')
-        this.$refs.sortOrder.focus()
-        return
+        alert('sortOrder is Number.');
+        this.$refs.sortOrder.focus();
+        return;
       }
-      this.isLoading = true
-      var vm = this
+      this.isLoading = true;
+      var vm = this;
       this.axios
         .post(
           this.apiInfo.url,
           {
             apiCode: this.apiInfo.apiCode,
             authCode: this.$store.state.authCode,
-            currencyPair: this.currencyPair
+            currencyPair: this.currencyPair,
           },
           {
             headers: {
               'X-CSRF-TOKEN': this.csrfToken,
-              'X-ApiAuthCode': this.$store.state.authCode
-            }
+              'X-ApiAuthCode': this.$store.state.authCode,
+            },
           }
         )
         .then(function (response) {
-          console.log(response)
-          vm.apiResponse = response.data
+          console.log(response);
+          vm.apiResponse = response.data;
           if (vm.apiInfo.messageCode === response.data.messageCode) {
-            vm.resultMessage = vm.apiResponse.messageText
-            vm.isInput = false
+            vm.resultMessage = vm.apiResponse.messageText;
+            vm.isInput = false;
           }
-          alert(vm.apiResponse.messageText)
+          alert(vm.apiResponse.messageText);
         })
         .catch(function (error) {
-          console.log(error)
-          vm.$router.push('/error')
+          console.log(error);
+          vm.$router.push('/error');
         })
         .finally(function () {
-          vm.isLoading = false
-        })
-    }
-  }
-}
+          vm.isLoading = false;
+        });
+    },
+  },
+};
 </script>
