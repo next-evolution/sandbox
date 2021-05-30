@@ -50,7 +50,7 @@ export default {
         return false
       }
       var dt = new Date(Number(sYear), 1, 1)
-      return dt.getFullYear() === sYear
+      return dt.getFullYear() === Number(sYear)
     },
     isDate: function (yyyyMMdd) {
       var checkValue = yyyyMMdd.replace(/\//g, '').replace(/-/g, '')

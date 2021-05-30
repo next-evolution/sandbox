@@ -31,7 +31,7 @@
         <div class="col-sm-2">
           <label for="applyStart" class="control-label text-nowrap">夏時間</label>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-2">
           <input
             type="date"
             v-model="summerTime.applyStart"
@@ -40,7 +40,7 @@
             class="form-control"/>
         </div>
         <div class="col-sm-1">~</div>
-        <div class="col-sm-3">
+        <div class="col-sm-2">
           <input
             type="date"
             v-model="summerTime.applyEnd"
