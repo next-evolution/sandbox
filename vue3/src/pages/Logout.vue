@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import Navigator from '@/components/Navigator.vue';
+import Navigator from '@/components/Navigator.vue'
 
 export default {
   name: 'Logout',
@@ -22,25 +22,25 @@ export default {
         messageCode: 'AA00099-I0',
       },
       isLoading: true,
-    };
+    }
   },
   created: function () {
-    this.$store.commit('logout');
+    this.$store.commit('logout')
 
-    this.isLoading = true;
-    var vm = this;
+    this.isLoading = true
+    var vm = this
     this.axios
       .get(this.apiInfo.url + '?apiCode=' + this.apiInfo.apiCode)
       .then(function (response) {
-        console.log(response);
+        console.log(response)
       })
       .catch(function (error) {
-        console.log(error);
+        console.log(error)
       })
       .finally(function () {
-        vm.$store.commit('logout');
-        vm.isLoading = false;
-      });
+        vm.$store.commit('logout')
+        vm.isLoading = false
+      })
   },
-};
+}
 </script>

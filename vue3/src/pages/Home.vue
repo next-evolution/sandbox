@@ -78,7 +78,7 @@ td {
 </style>
 
 <script>
-import Navigator from '@/components/Navigator.vue';
+import Navigator from '@/components/Navigator.vue'
 
 export default {
   name: 'Home',
@@ -86,7 +86,7 @@ export default {
   data: function () {
     return {
       login: this.$store.state.authCode != null,
-    };
+    }
   },
-};
+}
 </script>

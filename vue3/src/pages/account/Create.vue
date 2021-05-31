@@ -98,8 +98,8 @@
 </template>
 
 <script>
-import Navigator from '@/components/Navigator.vue';
-import ExecuteButton from '@/components/ExecuteButton.vue';
+import Navigator from '@/components/Navigator.vue'
+import ExecuteButton from '@/components/ExecuteButton.vue'
 
 export default {
   name: 'AccountCreate',
@@ -139,72 +139,72 @@ export default {
         messageCode: '',
         messageText: '',
       },
-    };
+    }
   },
   mounted: async function () {
-    this.birthdayInput = this.dateFormat(new Date(1985, 0, 1), 'yyyy-MM-dd');
-    this.csrfToken = await this.getCsrfToken(this);
+    this.birthdayInput = this.dateFormat(new Date(1985, 0, 1), 'yyyy-MM-dd')
+    this.csrfToken = await this.getCsrfToken(this)
   },
   methods: {
     insertApi: function () {
       if (!this.isMailAddress(this.emailAddress)) {
-        alert('email address error.');
-        this.$refs.emailAddress.focus();
-        return;
+        alert('email address error.')
+        this.$refs.emailAddress.focus()
+        return
       }
       if (this.isEmpty(this.familyName)) {
-        alert('familyName is empty.');
-        this.$refs.familyName.focus();
-        return;
+        alert('familyName is empty.')
+        this.$refs.familyName.focus()
+        return
       }
       if (this.isEmpty(this.firstName)) {
-        alert('firstName is empty.');
-        this.$refs.firstName.focus();
-        return;
+        alert('firstName is empty.')
+        this.$refs.firstName.focus()
+        return
       }
       if (this.isEmpty(this.familyNameEn)) {
-        alert('familyNameEn is empty.');
-        this.$refs.familyNameEn.focus();
-        return;
+        alert('familyNameEn is empty.')
+        this.$refs.familyNameEn.focus()
+        return
       }
       if (this.isEmpty(this.firstNameEn)) {
-        alert('firstNameEn is empty.');
-        this.$refs.firstNameEn.focus();
-        return;
+        alert('firstNameEn is empty.')
+        this.$refs.firstNameEn.focus()
+        return
       }
       if (this.isEmpty(this.sexFlag)) {
-        alert('sex flag not selected.');
-        this.$refs.sexFlag.focus();
-        return;
+        alert('sex flag not selected.')
+        this.$refs.sexFlag.focus()
+        return
       }
       if (!this.isDate(this.birthdayInput)) {
-        alert('birthday error.');
-        this.$refs.birthday.focus();
-        return;
+        alert('birthday error.')
+        this.$refs.birthday.focus()
+        return
       }
-      this.birthday = this.birthdayInput.replace(/-/g, '');
+      this.birthday = this.birthdayInput.replace(/-/g, '')
 
       if (this.isEmpty(this.loginPassword)) {
-        alert('loginPassword is empty.');
-        this.$refs.loginPassword.focus();
-        return;
+        alert('loginPassword is empty.')
+        this.$refs.loginPassword.focus()
+        return
       }
       if (this.isEmpty(this.checkPassword)) {
-        alert('checkPassword is empty.');
-        this.$refs.checkPassword.focus();
-        return;
+        alert('checkPassword is empty.')
+        this.$refs.checkPassword.focus()
+        return
       }
       if (this.loginPassword !== this.checkPassword) {
-        alert('difference password.');
-        this.checkPassword = '';
-        this.$refs.checkPassword.focus();
-        return;
+        alert('difference password.')
+        this.checkPassword = ''
+        this.$refs.checkPassword.focus()
+        return
       }
       if (!confirm('登録を実行しますか？')) {
-        return;
+        return
       }
-      this.isLoading = true;
-      var vm = this;
+      this.isLoading = true
+      var vm = this
       this.axios
         .post(
           this.apiInfo.url,
@@ -227,22 +227,22 @@ export default {
           }
         )
         .then(function (response) {
-          console.log(response);
+          console.log(response)
           if (vm.apiInfo.messageCode === response.data.messageCode) {
-            vm.isInput = false;
-            vm.$router.push('/account/activation');
+            vm.isInput = false
+            vm.$router.push('/account/activation')
           }
-          vm.resultMessage = response.data.messageText;
-          alert(response.data.messageText);
+          vm.resultMessage = response.data.messageText
+          alert(response.data.messageText)
         })
         .catch(function (error) {
-          console.log(error);
-          vm.$router.push('/error');
+          console.log(error)
+          vm.$router.push('/error')
         })
         .finally(function () {
-          vm.isLoading = false;
-        });
+          vm.isLoading = false
+        })
     },
   },
-};
+}
 </script>

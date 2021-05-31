@@ -66,8 +66,8 @@
 </template>
 
 <script>
-import Navigator from '@/components/Navigator.vue';
-import ExecuteButton from '@/components/ExecuteButton.vue';
+import Navigator from '@/components/Navigator.vue'
+import ExecuteButton from '@/components/ExecuteButton.vue'
 
 export default {
   name: 'FxCountryEdit',
@@ -111,64 +111,64 @@ export default {
         messageCode: '',
         messageText: '',
       },
-    };
+    }
   },
   mounted: function () {
-    this.isLoading = true;
-    this.$refs.countryCode.focus();
-    let vm = this;
+    this.isLoading = true
+    this.$refs.countryCode.focus()
+    let vm = this
     this.axios
       .get(this.apiInfoSelect.url + '?apiCode=' + this.apiInfoSelect.apiCode + '&countryCode=' + this.$route.params.countryCode, {
         headers: { 'X-ApiAuthCode': this.$store.state.authCode },
       })
       .then(function (response) {
-        console.log(response);
+        console.log(response)
         if (vm.apiInfoSelect.messageCode === response.data.messageCode) {
-          vm.csrfToken = response.data.csrfToken;
-          vm.countryCode = response.data.body.country.countryCode;
-          vm.country = response.data.body.country;
+          vm.csrfToken = response.data.csrfToken
+          vm.countryCode = response.data.body.country.countryCode
+          vm.country = response.data.body.country
         } else {
-          alert(response.data.messageText);
+          alert(response.data.messageText)
         }
       })
       .catch(function (error) {
-        console.log(error);
-        vm.$router.push('/error');
+        console.log(error)
+        vm.$router.push('/error')
       })
       .finally(function () {
-        vm.isLoading = false;
-      });
+        vm.isLoading = false
+      })
   },
   methods: {
     updateApi: function () {
       if (this.isEmpty(this.country.countryCode)) {
-        alert('input countryCode.');
-        this.$refs.countryCode.focus();
-        return;
+        alert('input countryCode.')
+        this.$refs.countryCode.focus()
+        return
       }
       if (this.isEmpty(this.country.countryName)) {
-        alert('input countryName.');
-        this.$refs.countryName.focus();
-        return;
+        alert('input countryName.')
+        this.$refs.countryName.focus()
+        return
       }
       if (this.isEmpty(this.country.countryNameEn)) {
-        alert('input countryNameEn.');
-        this.$refs.countryNameEn.focus();
-        return;
+        alert('input countryNameEn.')
+        this.$refs.countryNameEn.focus()
+        return
       }
       if (this.isEmpty(this.country.countryNameShort)) {
-        alert('input countryNameShort.');
-        this.$refs.countryNameShort.focus();
-        return;
+        alert('input countryNameShort.')
+        this.$refs.countryNameShort.focus()
+        return
       }
       if (!this.isNumber(this.country.sortOrder)) {
-        alert('sortOrder is Number.');
-        this.$refs.sortOrder.focus();
-        return;
+        alert('sortOrder is Number.')
+        this.$refs.sortOrder.focus()
+        return
       }
 
-      this.isLoading = true;
-      let vm = this;
+      this.isLoading = true
+      let vm = this
       this.axios
         .post(
           this.apiInfo.url,
@@ -186,22 +186,22 @@ export default {
           }
         )
         .then(function (response) {
-          console.log(response);
+          console.log(response)
           if (vm.apiInfo.messageCode === response.data.messageCode) {
-            vm.resultMessage = response.data.messageText;
-            vm.isInput = false;
-            vm.$router.push(vm.backPage);
+            vm.resultMessage = response.data.messageText
+            vm.isInput = false
+            vm.$router.push(vm.backPage)
           }
-          alert(response.data.messageText);
+          alert(response.data.messageText)
         })
         .catch(function (error) {
-          console.log(error);
-          vm.$router.push('/error');
+          console.log(error)
+          vm.$router.push('/error')
         })
         .finally(function () {
-          vm.isLoading = false;
-        });
+          vm.isLoading = false
+        })
     },
   },
-};
+}
 </script>

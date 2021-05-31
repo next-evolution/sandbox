@@ -34,8 +34,8 @@
 </template>
 
 <script>
-import Navigator from '@/components/Navigator.vue';
-import ExecuteButton from '@/components/ExecuteButton.vue';
+import Navigator from '@/components/Navigator.vue'
+import ExecuteButton from '@/components/ExecuteButton.vue'
 
 export default {
   name: 'Login',
@@ -58,25 +58,25 @@ export default {
       loginPassword: 'testtest',
 
       resultText: '',
-    };
+    }
   },
   mounted: async function () {
-    this.csrfToken = await this.getCsrfToken(this);
+    this.csrfToken = await this.getCsrfToken(this)
   },
   methods: {
     loginApi: function () {
       if (!this.isMailAddress(this.emailAddress)) {
-        alert('email address error.');
-        this.$refs.emailAddress.focus();
-        return;
+        alert('email address error.')
+        this.$refs.emailAddress.focus()
+        return
       }
       if (this.isEmpty(this.loginPassword)) {
-        alert('password is empty.');
-        this.$refs.loginPassword.focus();
-        return;
+        alert('password is empty.')
+        this.$refs.loginPassword.focus()
+        return
       }
-      this.isLoading = true;
-      const vm = this;
+      this.isLoading = true
+      const vm = this
       this.axios
         .post(
           this.apiInfo.url,
@@ -88,28 +88,28 @@ export default {
           { headers: { 'X-CSRF-TOKEN': this.csrfToken } }
         )
         .then(function (response) {
-          console.log(response);
+          console.log(response)
           if (vm.apiInfo.messageCode === response.data.messageCode) {
-            vm.$store.commit('authCode', response.data.body.authCode);
-            vm.$store.commit('loginUser', response.data.body.loginUser);
+            vm.$store.commit('authCode', response.data.body.authCode)
+            vm.$store.commit('loginUser', response.data.body.loginUser)
             if (vm.isEmpty(vm.$route.query.ref)) {
-              vm.$router.push('/');
+              vm.$router.push('/')
             } else {
-              vm.$router.push({ path: vm.$route.query.ref });
+              vm.$router.push({ path: vm.$route.query.ref })
             }
           } else {
-            vm.resultText = JSON.stringify(response.data);
-            alert(response.data.messageText);
+            vm.resultText = JSON.stringify(response.data)
+            alert(response.data.messageText)
           }
         })
         .catch(function (error) {
-          console.log(error);
-          vm.$router.push('/error');
+          console.log(error)
+          vm.$router.push('/error')
         })
         .finally(function () {
-          vm.isLoading = false;
-        });
+          vm.isLoading = false
+        })
     },
   },
-};
+}
 </script>

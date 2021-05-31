@@ -39,8 +39,8 @@
 </template>
 
 <script>
-import Navigator from '@/components/Navigator.vue';
-import ExecuteButton from '@/components/ExecuteButton.vue';
+import Navigator from '@/components/Navigator.vue'
+import ExecuteButton from '@/components/ExecuteButton.vue'
 
 export default {
   name: 'AccountActivation',
@@ -72,28 +72,28 @@ export default {
         messageCode: '',
         messageText: '',
       },
-    };
+    }
   },
   mounted: async function () {
-    this.csrfToken = await this.getCsrfToken(this);
+    this.csrfToken = await this.getCsrfToken(this)
   },
   methods: {
     insertApi: function () {
       if (!this.isMailAddress(this.emailAddress)) {
-        alert('email address error.');
-        this.$refs.emailAddress.focus();
-        return;
+        alert('email address error.')
+        this.$refs.emailAddress.focus()
+        return
       }
       if (this.isEmpty(this.activationCode)) {
-        alert('activationCode is empty.');
-        this.$refs.activationCode.focus();
-        return;
+        alert('activationCode is empty.')
+        this.$refs.activationCode.focus()
+        return
       }
       if (!confirm('ユーザ認証を実行しますか？')) {
-        return;
+        return
       }
-      this.isLoading = true;
-      var vm = this;
+      this.isLoading = true
+      var vm = this
       this.axios
         .post(
           this.apiInfo.url,
@@ -110,22 +110,22 @@ export default {
           }
         )
         .then(function (response) {
-          console.log(response);
+          console.log(response)
           if (vm.apiInfo.messageCode === response.data.messageCode) {
-            vm.isInput = false;
-            vm.$router.push('/login');
+            vm.isInput = false
+            vm.$router.push('/login')
           }
-          vm.resultMessage = response.data.messageText;
-          alert(response.data.messageText);
+          vm.resultMessage = response.data.messageText
+          alert(response.data.messageText)
         })
         .catch(function (error) {
-          console.log(error);
-          vm.$router.push('/error');
+          console.log(error)
+          vm.$router.push('/error')
         })
         .finally(function () {
-          vm.isLoading = false;
-        });
+          vm.isLoading = false
+        })
     },
   },
-};
+}
 </script>

@@ -52,8 +52,8 @@
 </template>
 
 <script>
-import Navigator from '@/components/Navigator.vue';
-import ExecuteButton from '@/components/ExecuteButton.vue';
+import Navigator from '@/components/Navigator.vue'
+import ExecuteButton from '@/components/ExecuteButton.vue'
 
 export default {
   name: 'AccountCreate',
@@ -88,45 +88,45 @@ export default {
       //     messageCode: '',
       //     messageText: ''
       //   }
-    };
+    }
   },
   mounted: async function () {
-    this.csrfToken = await this.getCsrfToken(this);
+    this.csrfToken = await this.getCsrfToken(this)
   },
   methods: {
     updateApi: function () {
       if (this.isEmpty(this.loginPassword)) {
-        alert('loginPassword is empty.');
-        this.$refs.loginPassword.focus();
-        return;
+        alert('loginPassword is empty.')
+        this.$refs.loginPassword.focus()
+        return
       }
       if (this.isEmpty(this.loginPasswordNew)) {
-        alert('loginPasswordNew is empty.');
-        this.$refs.loginPasswordNew.focus();
-        return;
+        alert('loginPasswordNew is empty.')
+        this.$refs.loginPasswordNew.focus()
+        return
       }
       if (this.loginPassword === this.loginPasswordNew) {
-        alert('is the same password.');
-        this.loginPasswordNew = '';
-        this.$refs.loginPasswordNew.focus();
-        return;
+        alert('is the same password.')
+        this.loginPasswordNew = ''
+        this.$refs.loginPasswordNew.focus()
+        return
       }
       if (this.isEmpty(this.checkPassword)) {
-        alert('checkPassword is empty.');
-        this.$refs.checkPassword.focus();
-        return;
+        alert('checkPassword is empty.')
+        this.$refs.checkPassword.focus()
+        return
       }
       if (this.loginPasswordNew !== this.checkPassword) {
-        alert('difference password.');
-        this.checkPassword = '';
-        this.$refs.checkPassword.focus();
-        return;
+        alert('difference password.')
+        this.checkPassword = ''
+        this.$refs.checkPassword.focus()
+        return
       }
       if (!confirm('パスワード変更を実行しますか？')) {
-        return;
+        return
       }
-      this.isLoading = true;
-      var vm = this;
+      this.isLoading = true
+      var vm = this
       this.axios
         .post(
           this.apiInfo.url,
@@ -145,21 +145,21 @@ export default {
           }
         )
         .then(function (response) {
-          console.log(response);
+          console.log(response)
           if (vm.apiInfo.messageCode === response.data.messageCode) {
-            vm.isInput = false;
+            vm.isInput = false
           }
-          vm.resultMessage = response.data.messageText;
-          alert(response.data.messageText);
+          vm.resultMessage = response.data.messageText
+          alert(response.data.messageText)
         })
         .catch(function (error) {
-          console.log(error);
-          vm.$router.push('/error');
+          console.log(error)
+          vm.$router.push('/error')
         })
         .finally(function () {
-          vm.isLoading = false;
-        });
+          vm.isLoading = false
+        })
     },
   },
-};
+}
 </script>

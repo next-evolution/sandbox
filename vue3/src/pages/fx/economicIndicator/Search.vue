@@ -73,7 +73,7 @@
 </style>
 
 <script>
-import Navigator from '@/components/Navigator.vue';
+import Navigator from '@/components/Navigator.vue'
 
 export default {
   name: 'FxEconomicIndicator',
@@ -157,29 +157,29 @@ export default {
           sortable: false,
         },
       ],
-    };
+    }
   },
   mounted: function () {
-    this.searchApi();
+    this.searchApi()
   },
   methods: {
     pageSizeChange: function () {
-      this.searchApi();
+      this.searchApi()
     },
     pageNoChange: function (value) {
-      this.pageNo = this.pageNo + value;
-      this.searchApi();
+      this.pageNo = this.pageNo + value
+      this.searchApi()
     },
     countryCodeChange: function () {
-      this.pageNo = 1;
-      this.searchApi();
+      this.pageNo = 1
+      this.searchApi()
     },
     economicIndicatorNameChange: function () {
-      this.searchApi();
+      this.searchApi()
     },
     searchApi: function () {
-      var vm = this;
-      this.isLoading = true;
+      var vm = this
+      this.isLoading = true
       this.axios
         .get(
           this.apiInfo.url +
@@ -196,30 +196,30 @@ export default {
           { headers: { 'X-ApiAuthCode': this.$store.state.authCode } }
         )
         .then(function (response) {
-          console.log(response);
-          vm.apiResponse = response.data;
+          console.log(response)
+          vm.apiResponse = response.data
           if (vm.apiInfo.messageCode === response.data.messageCode) {
-            vm.searchCount = response.data.body.searchCount;
-            vm.pageNo = response.data.body.pageNo;
-            vm.pageSize = response.data.body.pageSize;
-            vm.totalPageCount = response.data.body.totalPageCount;
-            vm.countryList = response.data.body.countryList;
-            vm.economicIndicatorList = response.data.body.economicIndicatorList;
+            vm.searchCount = response.data.body.searchCount
+            vm.pageNo = response.data.body.pageNo
+            vm.pageSize = response.data.body.pageSize
+            vm.totalPageCount = response.data.body.totalPageCount
+            vm.countryList = response.data.body.countryList
+            vm.economicIndicatorList = response.data.body.economicIndicatorList
           } else {
-            alert(response.data.messageText);
+            alert(response.data.messageText)
           }
         })
         .catch(function (error) {
-          console.log(error);
-          vm.$router.push('/error');
+          console.log(error)
+          vm.$router.push('/error')
         })
         .finally(function () {
-          vm.isLoading = false;
-        });
+          vm.isLoading = false
+        })
     },
     select: function (e) {
-      this.$router.push('/fx/economicIndicator/edit/' + e.economicIndicatorId + '/' + e.countryCode);
+      this.$router.push('/fx/economicIndicator/edit/' + e.economicIndicatorId + '/' + e.countryCode)
     },
   },
-};
+}
 </script>

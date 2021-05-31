@@ -41,7 +41,7 @@
 </style>
 
 <script>
-import Navigator from '@/components/Navigator.vue';
+import Navigator from '@/components/Navigator.vue'
 
 export default {
   name: 'FxCountry',
@@ -76,34 +76,34 @@ export default {
         messageCode: '',
         messageText: '',
       },
-    };
+    }
   },
   mounted: function () {
-    var vm = this;
-    this.isLoading = true;
+    var vm = this
+    this.isLoading = true
     this.axios
       .get(this.apiInfo.url + '?apiCode=' + this.apiInfo.apiCode, {
         headers: { 'X-ApiAuthCode': this.$store.state.authCode },
       })
       .then(function (response) {
-        console.log(response);
-        vm.apiResponse = response.data;
+        console.log(response)
+        vm.apiResponse = response.data
         if (vm.apiInfo.messageCode === response.data.messageCode) {
-          vm.countryList = response.data.body.countryList;
+          vm.countryList = response.data.body.countryList
         }
       })
       .catch(function (error) {
-        console.log(error);
-        vm.$router.push('/error');
+        console.log(error)
+        vm.$router.push('/error')
       })
       .finally(function () {
-        vm.isLoading = false;
-      });
+        vm.isLoading = false
+      })
   },
   methods: {
     select: function (e) {
-      this.$router.push('/fx/country/edit/' + e);
+      this.$router.push('/fx/country/edit/' + e)
     },
   },
-};
+}
 </script>

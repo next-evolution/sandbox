@@ -59,8 +59,8 @@
 </template>
 
 <script>
-import Navigator from '@/components/Navigator.vue';
-import ExecuteButton from '@/components/ExecuteButton.vue';
+import Navigator from '@/components/Navigator.vue'
+import ExecuteButton from '@/components/ExecuteButton.vue'
 
 export default {
   name: 'FxCurrencyPairAdd',
@@ -97,53 +97,53 @@ export default {
         messageCode: '',
         messageText: '',
       },
-    };
+    }
   },
   mounted: async function () {
-    this.csrfToken = await this.getCsrfToken(this);
+    this.csrfToken = await this.getCsrfToken(this)
   },
   methods: {
     initialize: async function () {
-      this.isLoading = true;
+      this.isLoading = true
 
-      this.isInput = true;
-      this.currencyPair.currencyPairCode = '';
-      this.currencyPair.currencyPairName = '';
-      this.currencyPair.profitVolatility = '';
-      this.currencyPair.sortOrder = '';
+      this.isInput = true
+      this.currencyPair.currencyPairCode = ''
+      this.currencyPair.currencyPairName = ''
+      this.currencyPair.profitVolatility = ''
+      this.currencyPair.sortOrder = ''
 
-      this.resultMessage = '';
+      this.resultMessage = ''
 
-      this.csrfToken = await this.getCsrfToken(this);
+      this.csrfToken = await this.getCsrfToken(this)
     },
     insertApi: function () {
       if (this.isEmpty(this.currencyPair.currencyPairCode)) {
-        alert('input currencyPair.');
-        this.$refs.currencyPairCode.focus();
-        return;
+        alert('input currencyPair.')
+        this.$refs.currencyPairCode.focus()
+        return
       }
       if (!this.isCurrencyPair(this.currencyPair.currencyPairCode)) {
-        alert('not currencyPair.');
-        this.$refs.currencyPairCode.focus();
-        return;
+        alert('not currencyPair.')
+        this.$refs.currencyPairCode.focus()
+        return
       }
       if (this.isEmpty(this.currencyPair.currencyPairName)) {
-        alert('input currencyPairName.');
-        this.$refs.currencyPairName.focus();
-        return;
+        alert('input currencyPairName.')
+        this.$refs.currencyPairName.focus()
+        return
       }
       if (!this.isPrice(this.currencyPair.profitVolatility)) {
-        alert('volatility is not price.');
-        this.$refs.profitVolatility.focus();
-        return;
+        alert('volatility is not price.')
+        this.$refs.profitVolatility.focus()
+        return
       }
       if (!this.isNumber(this.currencyPair.sortOrder)) {
-        alert('sortOrder is Number.');
-        this.$refs.sortOrder.focus();
-        return;
+        alert('sortOrder is Number.')
+        this.$refs.sortOrder.focus()
+        return
       }
-      this.isLoading = true;
-      var vm = this;
+      this.isLoading = true
+      var vm = this
       this.axios
         .post(
           this.apiInfo.url,
@@ -160,22 +160,22 @@ export default {
           }
         )
         .then(function (response) {
-          console.log(response);
-          vm.apiResponse = response.data;
+          console.log(response)
+          vm.apiResponse = response.data
           if (vm.apiInfo.messageCode === response.data.messageCode) {
-            vm.resultMessage = vm.apiResponse.messageText;
-            vm.isInput = false;
+            vm.resultMessage = vm.apiResponse.messageText
+            vm.isInput = false
           }
-          alert(vm.apiResponse.messageText);
+          alert(vm.apiResponse.messageText)
         })
         .catch(function (error) {
-          console.log(error);
-          vm.$router.push('/error');
+          console.log(error)
+          vm.$router.push('/error')
         })
         .finally(function () {
-          vm.isLoading = false;
-        });
+          vm.isLoading = false
+        })
     },
   },
-};
+}
 </script>

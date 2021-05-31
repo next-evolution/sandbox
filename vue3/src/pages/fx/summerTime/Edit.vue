@@ -1,7 +1,7 @@
 <template>
   <div id="mainContent">
     <Navigator :back-page="backPage" :loading="isLoading" />
-    <div id="resultMessage">{{resultMessage}}</div>
+    <div id="resultMessage">{{ resultMessage }}</div>
     <div v-show="!isInput">
       <router-link :to="backPage">戻る</router-link>
     </div>
@@ -22,21 +22,11 @@
           <label for="applyStart" class="control-label text-nowrap">夏時間</label>
         </div>
         <div class="col-sm-2">
-          <input
-            type="date"
-            v-model="summerTime.applyStart"
-            ref="applyStart"
-            class="form-control"
-            placeholder="yyyy-MM-dd"/>
+          <input type="date" v-model="summerTime.applyStart" ref="applyStart" class="form-control" placeholder="yyyy-MM-dd" />
         </div>
         <div class="col-sm-1">~</div>
         <div class="col-sm-2">
-          <input
-            type="date"
-            v-model="summerTime.applyEnd"
-            ref="applyEnd"
-            class="form-control"
-            placeholder="yyyy-MM-dd"/>
+          <input type="date" v-model="summerTime.applyEnd" ref="applyEnd" class="form-control" placeholder="yyyy-MM-dd" />
         </div>
       </div>
       <hr />
@@ -58,7 +48,7 @@ export default {
   name: 'FxSummerTimeEdit',
   components: {
     Navigator,
-    ExecuteButton
+    ExecuteButton,
   },
   data: function () {
     return {
@@ -66,12 +56,12 @@ export default {
       apiInfo: {
         apiCode: 'FX14040',
         url: this.getApiUrl('/fx/summerTime/update'),
-        messageCode: 'ZZ20050-I0'
+        messageCode: 'ZZ20050-I0',
       },
       apiInfoSelect: {
         apiCode: 'FX14020',
         url: this.getApiUrl('/fx/summerTime/select'),
-        messageCode: 'ZZ20020-I0'
+        messageCode: 'ZZ20020-I0',
       },
 
       isLoading: false,
@@ -84,13 +74,13 @@ export default {
       summerTime: {
         targetYear: '',
         applyStart: '',
-        applyEnd: ''
+        applyEnd: '',
       },
 
       summerTimeData: {
         targetYear: '',
         applyStart: '',
-        applyEnd: ''
+        applyEnd: '',
       },
 
       apiResponse: {
@@ -98,22 +88,17 @@ export default {
         returnCode: 0,
         recordCount: 0,
         messageCode: '',
-        messageText: ''
-      }
+        messageText: '',
+      },
     }
   },
   mounted: function () {
     this.isLoading = true
     var vm = this
     this.axios
-      .get(
-        this.apiInfoSelect.url +
-          '?apiCode=' +
-          this.apiInfoSelect.apiCode +
-          '&targetYear=' +
-          this.$route.params.targetYear,
-        { headers: { 'X-ApiAuthCode': this.$store.state.authCode } }
-      )
+      .get(this.apiInfoSelect.url + '?apiCode=' + this.apiInfoSelect.apiCode + '&targetYear=' + this.$route.params.targetYear, {
+        headers: { 'X-ApiAuthCode': this.$store.state.authCode },
+      })
       .then(function (response) {
         console.log(response)
         vm.apiResponse = response.data
@@ -147,10 +132,7 @@ export default {
       }
 
       this.summerTimeData.targetYear = this.summerTime.targetYear
-      this.summerTimeData.applyStart = this.summerTime.applyStart.replace(
-        /-/g,
-        ''
-      )
+      this.summerTimeData.applyStart = this.summerTime.applyStart.replace(/-/g, '')
       this.summerTimeData.applyEnd = this.summerTime.applyEnd.replace(/-/g, '')
 
       this.isLoading = true
@@ -162,13 +144,13 @@ export default {
             apiCode: this.apiInfo.apiCode,
             authCode: this.$store.state.authCode,
             targetYear: this.targetYear,
-            summerTime: this.summerTimeData
+            summerTime: this.summerTimeData,
           },
           {
             headers: {
               'X-CSRF-TOKEN': this.csrfToken,
-              'X-ApiAuthCode': this.$store.state.authCode
-            }
+              'X-ApiAuthCode': this.$store.state.authCode,
+            },
           }
         )
         .then(function (response) {
@@ -187,7 +169,7 @@ export default {
         .finally(function () {
           vm.isLoading = false
         })
-    }
-  }
+    },
+  },
 }
 </script>

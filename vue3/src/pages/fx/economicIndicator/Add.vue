@@ -77,8 +77,8 @@
 </template>
 
 <script>
-import Navigator from '@/components/Navigator.vue';
-import ExecuteButton from '@/components/ExecuteButton.vue';
+import Navigator from '@/components/Navigator.vue'
+import ExecuteButton from '@/components/ExecuteButton.vue'
 
 export default {
   name: 'FxEconomicIndicatorAdd',
@@ -124,58 +124,58 @@ export default {
         messageCode: '',
         messageText: '',
       },
-    };
+    }
   },
   mounted: function () {
-    this.isLoading = true;
-    var vm = this;
+    this.isLoading = true
+    var vm = this
     this.axios
       .get(this.apiInfoSelect.url + '?apiCode=' + this.apiInfoSelect.apiCode, {
         headers: { 'X-ApiAuthCode': this.$store.state.authCode },
       })
       .then(function (response) {
-        console.log(response);
+        console.log(response)
         if (vm.apiInfoSelect.messageCode === response.data.messageCode) {
-          vm.csrfToken = response.data.csrfToken;
-          vm.countryList = response.data.body.countryList;
-          vm.economicIndicator.countryCode = response.data.body.countryList[0].countryCode;
+          vm.csrfToken = response.data.csrfToken
+          vm.countryList = response.data.body.countryList
+          vm.economicIndicator.countryCode = response.data.body.countryList[0].countryCode
         } else {
-          alert(response.data.messageText);
+          alert(response.data.messageText)
         }
       })
       .catch(function (error) {
-        console.log(error);
-        vm.$router.push('/error');
+        console.log(error)
+        vm.$router.push('/error')
       })
       .finally(function () {
-        vm.isLoading = false;
-      });
+        vm.isLoading = false
+      })
   },
   methods: {
     initialize: async function () {
-      this.isLoading = true;
+      this.isLoading = true
 
-      this.isInput = true;
-      this.economicIndicator.economicIndicatorName = '';
-      this.economicIndicator.economicIndicatorDescription = '';
-      this.economicIndicator.unitOfValue = '';
-      this.economicIndicator.resultMessage = '';
+      this.isInput = true
+      this.economicIndicator.economicIndicatorName = ''
+      this.economicIndicator.economicIndicatorDescription = ''
+      this.economicIndicator.unitOfValue = ''
+      this.economicIndicator.resultMessage = ''
 
-      this.csrfToken = await this.getCsrfToken(this);
+      this.csrfToken = await this.getCsrfToken(this)
     },
     insertApi: function () {
       if (this.isEmpty(this.economicIndicator.countryCode)) {
-        alert('select countryCode.');
-        this.$refs.countryCode.focus();
-        return;
+        alert('select countryCode.')
+        this.$refs.countryCode.focus()
+        return
       }
       if (this.isEmpty(this.economicIndicator.economicIndicatorName)) {
-        alert('input economicIndicatorName.');
-        this.$refs.economicIndicatorName.focus();
-        return;
+        alert('input economicIndicatorName.')
+        this.$refs.economicIndicatorName.focus()
+        return
       }
-      this.isLoading = true;
-      var vm = this;
+      this.isLoading = true
+      var vm = this
       this.axios
         .post(
           this.apiInfo.url,
@@ -192,21 +192,21 @@ export default {
           }
         )
         .then(function (response) {
-          console.log(response);
+          console.log(response)
           if (vm.apiInfo.messageCode === response.data.messageCode) {
-            vm.resultMessage = vm.appResponse.messageText;
-            vm.isInput = false;
+            vm.resultMessage = vm.appResponse.messageText
+            vm.isInput = false
           }
-          alert(response.data.messageText);
+          alert(response.data.messageText)
         })
         .catch(function (error) {
-          console.log(error);
-          vm.$router.push('/error');
+          console.log(error)
+          vm.$router.push('/error')
         })
         .finally(function () {
-          vm.isLoading = false;
-        });
+          vm.isLoading = false
+        })
     },
   },
-};
+}
 </script>

@@ -41,7 +41,7 @@
 </style>
 
 <script>
-import Navigator from '@/components/Navigator.vue';
+import Navigator from '@/components/Navigator.vue'
 
 export default {
   name: 'FxCurrencyPair',
@@ -97,32 +97,32 @@ export default {
       //     sortable: true
       //   }
       // ]
-    };
+    }
   },
   mounted: function () {
-    var vm = this;
-    this.isLoading = true;
+    var vm = this
+    this.isLoading = true
     this.axios
       .get(this.apiInfo.url + '?apiCode=' + this.apiInfo.apiCode, {
         headers: { 'X-ApiAuthCode': this.$store.state.authCode },
       })
       .then(function (response) {
-        console.log(response);
-        vm.apiResponse = response.data;
-        vm.currencyPairList = response.data.body.currencyPairList;
+        console.log(response)
+        vm.apiResponse = response.data
+        vm.currencyPairList = response.data.body.currencyPairList
       })
       .catch(function (error) {
-        console.log(error);
-        vm.$router.push('/error');
+        console.log(error)
+        vm.$router.push('/error')
       })
       .finally(function () {
-        vm.isLoading = false;
-      });
+        vm.isLoading = false
+      })
   },
   methods: {
     select: function (e) {
-      this.$router.push('/fx/currencyPair/edit/' + e);
+      this.$router.push('/fx/currencyPair/edit/' + e)
     },
   },
-};
+}
 </script>
