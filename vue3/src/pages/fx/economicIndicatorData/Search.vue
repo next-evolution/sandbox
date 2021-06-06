@@ -1,71 +1,74 @@
 <template>
   <div id="mainContent">
     <Navigator :loading="isLoading" />
-    <div class="row" style="margin-left: 15px">
-      <div class="col-auto align-self-center">経済指標データ：{{ resultMessage }}</div>
-      <div class="col-auto">
-        <select v-model="pageSize" ref="pageSize" v-on:change="pageSizeChange" class="form-select">
-          <option v-for="pageSize in pageSizeList" :key="pageSize">{{ pageSize }}</option>
-        </select>
-      </div>
-      <div class="col-auto align-self-center">
-        <button v-if="pageNo === 1" class="btn btn-secondary" style="margin-left: 10px" disabled>&lt;</button>
-        <button v-if="pageNo > 1" v-on:click="pageNoChange(-1)" class="btn btn-primary" style="margin-left: 10px">&lt;</button>
-        <span style="margin-left: 5px; margin-right: 5px">[ {{ pageNo }} / {{ totalPageCount }} ]</span>
-        <button v-if="totalPageCount <= pageNo" class="btn btn-secondary" style="margin-left: 1px" disabled>&gt;</button>
-        <button v-if="totalPageCount > pageNo" v-on:click="pageNoChange(1)" class="btn btn-primary" style="margin-left: 1px">&gt;</button>
-      </div>
-      <div class="col-auto">
-        <select v-model="countryCode" ref="countryCode" v-on:change="countryCodeChange">
-          <option v-for="country in countryList" :key="country.countryCode" :value="country.countryCode">{{ country.countryName }}</option>
-        </select>
-      </div>
-      <div class="col-auto">
-        <select v-model="economicIndicatorId" ref="economicIndicatorId" v-on:change="searchApi">
-          <option
-            v-for="economicIndicator in economicIndicatorList"
-            :key="economicIndicator.economicIndicatorId"
-            :value="economicIndicator.economicIndicatorId"
-          >
-            {{ economicIndicator.economicIndicatorName }}
-          </option>
-        </select>
-      </div>
-      <!-- 年月日と指標名の検索はレイアウトの関係でコメントアウト
+    <div class="container">
+      <div class="row" style="margin-left: 15px">
+        <div class="col-auto align-self-center">経済指標データ：{{ resultMessage }}</div>
+        <div class="col-auto">
+          <select v-model="pageSize" ref="pageSize" v-on:change="pageSizeChange" class="form-select">
+            <option v-for="pageSize in pageSizeList" :key="pageSize">{{ pageSize }}</option>
+          </select>
+        </div>
+        <div class="col-auto align-self-center">
+          <button v-if="pageNo === 1" class="btn btn-secondary" style="margin-left: 10px" disabled>&lt;</button>
+          <button v-if="pageNo > 1" v-on:click="pageNoChange(-1)" class="btn btn-primary" style="margin-left: 10px">&lt;</button>
+          <span style="margin-left: 5px; margin-right: 5px">[ {{ pageNo }} / {{ totalPageCount }} ]</span>
+          <button v-if="totalPageCount <= pageNo" class="btn btn-secondary" style="margin-left: 1px" disabled>&gt;</button>
+          <button v-if="totalPageCount > pageNo" v-on:click="pageNoChange(1)" class="btn btn-primary" style="margin-left: 1px">&gt;</button>
+        </div>
+        <div class="col-auto">
+          <select v-model="countryCode" ref="countryCode" v-on:change="countryCodeChange">
+            <option v-for="country in countryList" :key="country.countryCode" :value="country.countryCode">{{ country.countryName }}</option>
+          </select>
+        </div>
+        <div class="col-auto">
+          <select v-model="economicIndicatorId" ref="economicIndicatorId" v-on:change="searchApi">
+            <option
+              v-for="economicIndicator in economicIndicatorList"
+              :key="economicIndicator.economicIndicatorId"
+              :value="economicIndicator.economicIndicatorId"
+            >
+              {{ economicIndicator.economicIndicatorName }}
+            </option>
+          </select>
+        </div>
+        <!-- 年月日と指標名の検索はレイアウトの関係でコメントアウト
       <b-form-input type="date" v-model="publicationDateInput" placeholder="yyyyMMdd"></b-form-input>
       <b-form-input size="10" v-model="economicIndicatorName" placeholder="LIKE name"></b-form-input> -->
-      <div class="col-auto">
-        <router-link :to="makeAddPath()"> <button class="btn btn-primary">追加</button></router-link>
-      </div>
+        <div class="col-auto">
+          <router-link :to="makeAddPath()"> <button class="btn btn-primary">追加</button></router-link>
+        </div>
 
-      <table class="table table-striped table-hover">
-        <thead>
-          <tr>
-            <th>DateTime</th>
-            <th style="text-align: left">Name</th>
-            <th>発表値</th>
-            <th>予想値</th>
-            <th>前回値</th>
-            <th>memo</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            v-for="economicIndicatorData in economicIndicatorDataList"
-            :key="economicIndicatorData.economicIndicatorId"
-            v-on:click="select(economicIndicatorData)"
-          >
-            <td style="text-align: center">{{ economicIndicatorData.publicationDate }} {{ economicIndicatorData.publicationTime }}</td>
-            <td>
-              ( {{ economicIndicatorData.countryNameShort }} ) {{ economicIndicatorData.subTitle }} {{ economicIndicatorData.economicIndicatorName }}
-            </td>
-            <td style="text-align: right">{{ economicIndicatorData.resultValue }} {{ economicIndicatorData.unitOfValue }}</td>
-            <td style="text-align: right">{{ economicIndicatorData.forecastValue }} {{ economicIndicatorData.unitOfValue }}</td>
-            <td style="text-align: right">{{ economicIndicatorData.previousValue }} {{ economicIndicatorData.unitOfValue }}</td>
-            <td>{{ economicIndicatorData.memo }}</td>
-          </tr>
-        </tbody>
-      </table>
+        <table class="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th>DateTime</th>
+              <th style="text-align: left">Name</th>
+              <th>発表値</th>
+              <th>予想値</th>
+              <th>前回値</th>
+              <th>memo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              v-for="economicIndicatorData in economicIndicatorDataList"
+              :key="economicIndicatorData.economicIndicatorId"
+              v-on:click="select(economicIndicatorData)"
+            >
+              <td style="text-align: center">{{ economicIndicatorData.publicationDate }} {{ economicIndicatorData.publicationTime }}</td>
+              <td>
+                ( {{ economicIndicatorData.countryNameShort }} ) {{ economicIndicatorData.subTitle }}
+                {{ economicIndicatorData.economicIndicatorName }}
+              </td>
+              <td style="text-align: right">{{ economicIndicatorData.resultValue }} {{ economicIndicatorData.unitOfValue }}</td>
+              <td style="text-align: right">{{ economicIndicatorData.forecastValue }} {{ economicIndicatorData.unitOfValue }}</td>
+              <td style="text-align: right">{{ economicIndicatorData.previousValue }} {{ economicIndicatorData.unitOfValue }}</td>
+              <td>{{ economicIndicatorData.memo }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </template>

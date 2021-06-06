@@ -1,57 +1,58 @@
 <template>
   <div id="mainContent">
     <Navigator :loading="isLoading" />
-    <div>
-      <div v-if="!isLoading" align="left" style="padding-left: 20px;">
+    <div class="container">
+      <div v-if="!isLoading" align="left" style="padding-left: 20px">
         <label v-if="viewMode === 1 || isComplete">
           CSV upload
           <input type="file" multiple ref="uploadFiles" accept=".csv" @change="uploadCsv" style="display: none" />
         </label>
         <span style="margin-left: 20px">{{ resultMessage }}</span>
       </div>
+
+      <table v-if="viewMode === 1" class="table table-striped">
+        <tbody>
+          <tr>
+            <th style="width: 10%">currencyPair</th>
+            <th style="width: 90%; text-align: left">barDateTime</th>
+          </tr>
+          <tr v-for="barDataStatus in barDataStatusList" :key="barDataStatus.currencyPairCode">
+            <td>{{ barDataStatus.currencyPairCode }}</td>
+            <td style="text-align: left">{{ barDataStatus.barDateTime }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <table v-if="viewMode === 2" class="table table-striped">
+        <tbody>
+          <tr>
+            <th>currencyPair</th>
+            <th>barDateTimeForTable</th>
+            <th>fileName</th>
+            <th>fileSize</th>
+            <th>barDateTime</th>
+            <th>uploadResult</th>
+            <th>readCount</th>
+            <th>existsCount</th>
+            <th>insertCount</th>
+            <th>differenceCount</th>
+            <th>message</th>
+          </tr>
+          <tr v-for="barDataCsvInfo in barDataCsvInfoList" :key="barDataCsvInfo.currencyPairCode">
+            <td style="text-align: center">{{ barDataCsvInfo.currencyPairCode }}</td>
+            <td style="text-align: center">{{ barDataCsvInfo.barDateTimeForTable }}</td>
+            <td style="text-align: center">{{ barDataCsvInfo.fileName }}</td>
+            <td style="text-align: right">{{ barDataCsvInfo.fileSize }}</td>
+            <td style="text-align: center">{{ barDataCsvInfo.barDateTime }}</td>
+            <td style="text-align: center">{{ barDataCsvInfo.uploadResult }}</td>
+            <td style="text-align: right">{{ barDataCsvInfo.readCount }}</td>
+            <td style="text-align: right">{{ barDataCsvInfo.existsCount }}</td>
+            <td style="text-align: right">{{ barDataCsvInfo.insertCount }}</td>
+            <td style="text-align: right">{{ barDataCsvInfo.differenceCount }}</td>
+            <td style="text-align: left">{{ barDataCsvInfo.message }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-    <table v-if="viewMode === 1" class="table table-striped">
-      <tbody>
-        <tr>
-          <th style="width: 10%">currencyPair</th>
-          <th style="width: 90%; text-align: left">barDateTime</th>
-        </tr>
-        <tr v-for="barDataStatus in barDataStatusList" :key="barDataStatus.currencyPairCode">
-          <td>{{ barDataStatus.currencyPairCode }}</td>
-          <td style="text-align: left">{{ barDataStatus.barDateTime }}</td>
-        </tr>
-      </tbody>
-    </table>
-    <table v-if="viewMode === 2" class="table table-striped">
-      <tbody>
-        <tr>
-          <th>currencyPair</th>
-          <th>barDateTimeForTable</th>
-          <th>fileName</th>
-          <th>fileSize</th>
-          <th>barDateTime</th>
-          <th>uploadResult</th>
-          <th>readCount</th>
-          <th>existsCount</th>
-          <th>insertCount</th>
-          <th>differenceCount</th>
-          <th>message</th>
-        </tr>
-        <tr v-for="barDataCsvInfo in barDataCsvInfoList" :key="barDataCsvInfo.currencyPairCode">
-          <td style="text-align: center;">{{ barDataCsvInfo.currencyPairCode }}</td>
-          <td style="text-align: center;">{{ barDataCsvInfo.barDateTimeForTable }}</td>
-          <td style="text-align: center;">{{ barDataCsvInfo.fileName }}</td>
-          <td style="text-align: right;">{{ barDataCsvInfo.fileSize }}</td>
-          <td style="text-align: center;">{{ barDataCsvInfo.barDateTime }}</td>
-          <td style="text-align: center;">{{ barDataCsvInfo.uploadResult }}</td>
-          <td style="text-align: right;">{{ barDataCsvInfo.readCount }}</td>
-          <td style="text-align: right;">{{ barDataCsvInfo.existsCount }}</td>
-          <td style="text-align: right;">{{ barDataCsvInfo.insertCount }}</td>
-          <td style="text-align: right;">{{ barDataCsvInfo.differenceCount }}</td>
-          <td style="text-align: left;">{{ barDataCsvInfo.message }}</td>
-        </tr>
-      </tbody>
-    </table>
   </div>
 </template>
 

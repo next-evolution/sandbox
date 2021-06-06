@@ -66,8 +66,8 @@
     </div>
   </nav>
   <div>
-    <div v-if="hasBackPageUrl()" align="left" style="margin-left: 10px;">
-      <router-link :to="{path: backPage}">BACK</router-link>
+    <div v-if="hasBackPageUrl()" style="text-align: left;">
+      <router-link :to="{path: backPage}"><button class="btn btn-dark btn-sm">BACK</button></router-link>
     </div>
     <div v-else>
       <br />
@@ -109,7 +109,7 @@ export default {
       }
     },
     hasBackPageUrl : function(){
-      if(this.$route.path === '/'){
+      if(this.$route.path === '/' || this.$route.path === '/login' || this.$route.path === '/logout'){
           return false;
       }
       if( this.isEmpty(this.backPage) ){

@@ -12,15 +12,15 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  /* margin-top: 10px;
-  margin-bottom: 10px; */
+  /*全て含めてmin-height:100vhに*/
   min-height: 100vh;
-  /*←相対位置*/
+  /*相対位置*/
   position: relative;
-  /*←footerの高さ*/
-  padding-bottom: 50px;
-  /*←全て含めてmin-height:100vhに*/
   box-sizing: border-box;
+}
+
+table {
+  font-family: 'ＭＳ ゴシック';
 }
 
 footer {
@@ -31,7 +31,7 @@ footer {
   margin-top: -30px;
   width: 100%;
   padding: 10px 0;
-  /*←絶対位置*/
+  /* 絶対位置 */
   position: absolute;
   /*下に固定*/
   bottom: 0;

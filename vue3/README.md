@@ -13,6 +13,7 @@ yarn add bootstrap@next @popperjs/core
 yarn add vuex@4.0.0 vuex-persistedstate@4.0.0-beta.3
 yarn add axios vue-axios
 yarn add vue-loading-overlay
+yarn add vue-js-modal
 
 #yarn add --save axios vue-axios
 ## vue-loading-template -> Suspense
