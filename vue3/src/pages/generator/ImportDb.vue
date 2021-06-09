@@ -7,8 +7,7 @@
           <h3>DatabaseExcel</h3>
         </div>
         <div class="col-auto">
-          <label>
-            Excel Upload
+          <label class="btn btn-primary">Excel Upload
             <input type="file" multiple ref="uploadFiles" accept=".xlsx" @change="uploadExcel" style="display: none" />
           </label>
         </div>
@@ -43,11 +42,6 @@
 </template>
 
 <style scoped>
-label {
-  padding: 5px 5px;
-  color: #fcfcfc;
-  background-color: #333333;
-}
 th,
 td {
   text-align: left;

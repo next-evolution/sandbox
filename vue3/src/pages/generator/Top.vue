@@ -4,7 +4,6 @@
 
     <div class="container">
       <hr />
-
       <div class="row">
         <div class="col-auto">
           <select v-model="schemaName" ref="schemaName" v-on:change="schemaChange" class="form-select">
@@ -13,7 +12,9 @@
         </div>
         <div class="col-auto">
           <select v-model="tableName" ref="tableName" v-on:change="tableChange" class="form-select">
-            <option v-for="tableInfo in tableInfoList" :key="tableInfo.tableName" :value="tableInfo.tableName">{{ tableInfo.tableName }}</option>
+            <option v-for="tableInfo in tableInfoList" :key="tableInfo.tableName" :value="tableInfo.tableName">
+              {{ tableInfo.tableName }}
+            </option>
           </select>
         </div>
         <div class="col-auto align-self-center">{{ resultMessage }}</div>
@@ -29,6 +30,7 @@
         </div>
         <div class="col-auto">
           <!-- <button v-b-modal.modalStatistics pill variant="primary" v-show="statisticsList.length > 0">index</button> -->
+          <ModalIndexInfo v-if="modalOpen" :list="statisticsList" />
         </div>
         <div class="col-auto">
           <router-link :to="{ path: importDbUrl }"><button class="btn btn-success btn-sm">DB定義</button></router-link>
@@ -98,9 +100,6 @@
         <template v-slot:cell(required)="data">{{ data.value ? '' : '〇' }}</template>
       </b-table> -->
 
-      <teleport to="body">
-        <p>This is child component.</p>
-      </teleport>
       <!-- <b-modal id="modalResultCode" title="ResultCode" size="xl" hide-footer>
         <vue-loading type="spiningDubbles" v-show="isLoadingAjax" color="#333" :size="{ width: '50px', height: '50px' }"></vue-loading>
         <textarea v-if="!isLoadingAjax" v-model="resultCode" style="font-family: 'ＭＳ ゴシック', 'Monaco'; width: 100%; height: 500px"></textarea>
@@ -139,12 +138,14 @@ td {
 <script>
 import Navigator from '@/components/Navigator.vue'
 import ExecuteButton from '@/components/ExecuteButton.vue'
+import ModalIndexInfo from '@/components/ModalIndexInfo.vue'
 
 export default {
   name: 'GeneratorTop',
   components: {
     Navigator,
     ExecuteButton,
+    ModalIndexInfo,
   },
   data: function () {
     return {
@@ -171,6 +172,10 @@ export default {
       isLoading: false,
       isLoadingAjax: false,
       modalOpen: false,
+
+      isIndexModal: false,
+      isResultCodeModal: false,
+
       resultMessage: '',
 
       schemaName: '',
@@ -282,6 +287,9 @@ export default {
             vm.columnInfoList = response.data.body.columnInfoList
             vm.columnKeyInfoList = response.data.body.columnKeyInfoList
             vm.statisticsList = response.data.body.statisticsList
+            if (vm.statisticsList.length > 0) {
+              vm.modalOpen = true
+            }
           } else {
             if (vm.apiInfo.tableListEmptyCode === response.data.messageCode) {
               alert(response.data.messageText + '\n\n' + 'テーブル情報をimportしてください。')
@@ -302,7 +310,7 @@ export default {
     getCustomCode: function () {
       this.isLoadingAjax = true
       var vm = this
-      //this.$modal.show('modalResultCode')
+      this.isLoading = true
       this.isShowModalResultCode = true
       this.axios
         .post(
@@ -325,6 +333,7 @@ export default {
           console.log(response)
           if (vm.apiInfoCustom.messageCode === response.data.messageCode) {
             vm.resultCode = response.data.body.resultCode
+            vm.modalOpen = true
           } else {
             //            vm.$modal.hide('modalResultCode')
             this.isShowModalResultCode = false
@@ -337,6 +346,7 @@ export default {
           vm.$router.push('/error')
         })
         .finally(function () {
+          vm.isLoading = false
           vm.isLoadingAjax = false
         })
     },

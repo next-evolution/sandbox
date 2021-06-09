@@ -20,7 +20,7 @@
 }
 
 table {
-  font-family: 'ＭＳ ゴシック';
+  font-family: 'ＭＳ ゴシック', 'Monaco';
 }
 
 footer {

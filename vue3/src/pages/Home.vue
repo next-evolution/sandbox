@@ -1,9 +1,9 @@
 <template>
-  <div id="mainContainer">
+  <div id="mainContent">
     <Navigator />
     <div class="container">
-      <div v-show="!login">welcome Vue.js</div>
-      <table class="table table-bordered" v-show="login">
+      <div v-if="!login">welcome Vue.js</div>
+      <table v-if="login" class="table table-bordered">
         <tbody>
           <tr class="table-dark">
             <td colspan="3">◆ 経済指標 ◆</td>
@@ -98,9 +98,7 @@ export default {
   name: 'Home',
   components: { Navigator },
   data: function () {
-    return {
-      login: this.$store.state.authCode != null,
-    }
+    return { login: this.$store.state.authCode != null }
   },
 }
 </script>

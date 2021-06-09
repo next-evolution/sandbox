@@ -2,8 +2,8 @@
   <div id="mainContent">
     <Navigator :loading="isLoading" />
     <div class="container">
-      <div v-if="!isLoading" align="left" style="padding-left: 20px">
-        <label v-if="viewMode === 1 || isComplete">
+      <div v-if="!isLoading" align="left">
+        <label v-if="viewMode === 1 || isComplete" class="btn btn-primary">
           CSV upload
           <input type="file" multiple ref="uploadFiles" accept=".csv" @change="uploadCsv" style="display: none" />
         </label>
@@ -55,14 +55,6 @@
     </div>
   </div>
 </template>
-
-<style scoped>
-label {
-  padding: 5px 5px;
-  color: #fcfcfc;
-  background-color: #333333;
-}
-</style>
 
 <script>
 import Navigator from '@/components/Navigator.vue'
