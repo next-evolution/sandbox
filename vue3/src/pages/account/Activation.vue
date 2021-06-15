@@ -1,38 +1,33 @@
 <template>
-  <div id="mainContent">
-    <Navigator :loading="isLoading" />
+  <Navigator :loading="isLoading" />
+  <div class="container">
     <div id="resultMessage">{{ resultMessage }}</div>
-    <div v-show="!isInput">
-      <router-link to="/">戻る</router-link>
+    <div class="row" align-v="center" align-h="start">
+      <div class="col">ユーザ認証フォーム</div>
     </div>
-    <div class="container" v-show="isInput">
-      <div class="row" align-v="center" align-h="start">
-        <div class="col">ユーザ認証フォーム</div>
+    <hr />
+    <div class="row" align-v="center" align-h="start">
+      <div class="col-sm-2">
+        <label for="emailAddress" class="control-label text-nowrap">Email</label>
       </div>
-      <hr />
-      <div class="row" align-v="center" align-h="start">
-        <div class="col-sm-2">
-          <label for="emailAddress" class="control-label text-nowrap">Email</label>
-        </div>
-        <div class="col-sm-6">
-          <input type="email" id="emailAddress" ref="emailAddress" v-model="emailAddress" v-focus class="form-control" maxlength="128" />
-        </div>
+      <div class="col-sm-6">
+        <input type="email" id="emailAddress" ref="emailAddress" v-model="emailAddress" class="form-control" maxlength="128" />
       </div>
-      <hr />
-      <div class="row" align-v="center" align-h="start">
-        <div class="col-sm-2">
-          <label for="activationCode" class="control-label text-nowrap">認証コード</label>
-        </div>
-        <div class="col-sm-3">
-          <input type="tel" id="activationCode" ref="activationCode" v-model="activationCode" class="form-control" maxlength="64" />
-        </div>
+    </div>
+    <hr />
+    <div class="row" align-v="center" align-h="start">
+      <div class="col-sm-2">
+        <label for="activationCode" class="control-label text-nowrap">認証コード</label>
       </div>
-      <hr />
-      <div class="row" align-v="center" align-h="start">
-        <div class="col-sm-2"></div>
-        <div class="col-auto">
-          <ExecuteButton type="insert" @buttonClick="insertApi" />
-        </div>
+      <div class="col-sm-3">
+        <input type="tel" id="activationCode" ref="activationCode" v-model="activationCode" class="form-control" maxlength="64" />
+      </div>
+    </div>
+    <hr />
+    <div class="row" align-v="center" align-h="start">
+      <div class="col-sm-2"></div>
+      <div class="col-auto">
+        <ExecuteButton type="insert" @buttonClick="insertApi" />
       </div>
     </div>
   </div>
@@ -57,7 +52,6 @@ export default {
       },
 
       isLoading: false,
-      isInput: true,
       resultMessage: '',
 
       csrfToken: '',
@@ -76,6 +70,7 @@ export default {
   },
   mounted: async function () {
     this.csrfToken = await this.getCsrfToken(this)
+    this.$refs.emailAddress.focus()
   },
   methods: {
     insertApi: function () {
@@ -112,7 +107,6 @@ export default {
         .then(function (response) {
           console.log(response)
           if (vm.apiInfo.messageCode === response.data.messageCode) {
-            vm.isInput = false
             vm.$router.push('/login')
           }
           vm.resultMessage = response.data.messageText

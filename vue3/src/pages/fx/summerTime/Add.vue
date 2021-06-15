@@ -1,44 +1,42 @@
 <template>
-  <div id="mainContent">
-    <Navigator :back-page="backPage" :loading="isLoading" />
-    <div id="resultMessage">{{ resultMessage }}</div>
-    <div v-show="!isInput">
-      <router-link :to="backPage">戻る</router-link>
-      <br />
-      <button class="btn-primary" v-on:click="initialize">続けて登録</button>
+  <Navigator :back-page="backPage" :loading="isLoading" />
+  <div id="resultMessage">{{ resultMessage }}</div>
+  <div v-show="!isInput">
+    <router-link :to="backPage">戻る</router-link>
+    <br />
+    <button class="btn-primary" v-on:click="initialize">続けて登録</button>
+  </div>
+  <div class="container" v-show="isInput">
+    <div class="row" align-v="center" align-h="start">
+      <div class="col-sm-3">夏時間登録フォーム</div>
     </div>
-    <div class="container" v-show="isInput">
-      <div class="row" align-v="center" align-h="start">
-        <div class="col-sm-3">夏時間登録フォーム</div>
+    <hr />
+    <div class="row" align-v="center" align-h="start">
+      <div class="col-sm-2">
+        <label for="targetYear" class="control-label text-nowrap">対象年度</label>
       </div>
-      <hr />
-      <div class="row" align-v="center" align-h="start">
-        <div class="col-sm-2">
-          <label for="targetYear" class="control-label text-nowrap">対象年度</label>
-        </div>
-        <div class="col-sm-2">
-          <input type="tel" id="targetYear" ref="targetYear" v-model="summerTime.targetYear" class="form-control" maxlength="4" />
-        </div>
+      <div class="col-sm-2">
+        <input type="tel" id="targetYear" ref="targetYear" v-model="summerTime.targetYear" class="form-control" maxlength="4" />
       </div>
-      <hr />
-      <div class="row" align-v="center" align-h="start">
-        <div class="col-sm-2">
-          <label for="applyStart" class="control-label text-nowrap">夏時間</label>
-        </div>
-        <div class="col-sm-2">
-          <input type="date" v-model="summerTime.applyStart" ref="applyStart" placeholder="yyyy-MM-dd" class="form-control" />
-        </div>
-        <div class="col-sm-1">~</div>
-        <div class="col-sm-2">
-          <input type="date" v-model="summerTime.applyEnd" ref="applyEnd" class="form-control" placeholder="yyyy-MM-dd" />
-        </div>
+    </div>
+    <hr />
+    <div class="row" align-v="center" align-h="start">
+      <div class="col-sm-2">
+        <label for="applyStart" class="control-label text-nowrap">夏時間</label>
       </div>
-      <hr />
-      <div class="row" align-v="center" align-h="start">
-        <div class="col-sm-2"></div>
-        <div class="col-sm-2">
-          <ExecuteButton type="insert" @buttonClick="insertApi" />
-        </div>
+      <div class="col-sm-3">
+        <input type="date" v-model="summerTime.applyStart" ref="applyStart" placeholder="yyyy-MM-dd" class="form-control" />
+      </div>
+      <div class="col-sm-1">~</div>
+      <div class="col-sm-3">
+        <input type="date" v-model="summerTime.applyEnd" ref="applyEnd" class="form-control" placeholder="yyyy-MM-dd" />
+      </div>
+    </div>
+    <hr />
+    <div class="row" align-v="center" align-h="start">
+      <div class="col-sm-2"></div>
+      <div class="col-sm-2">
+        <ExecuteButton type="insert" @buttonClick="insertApi" />
       </div>
     </div>
   </div>
@@ -92,6 +90,7 @@ export default {
   },
   mounted: async function () {
     this.csrfToken = await this.getCsrfToken(this)
+    this.$refs.targetYear.focus()
   },
   methods: {
     initialize: async function () {

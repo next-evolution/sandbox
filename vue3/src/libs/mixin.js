@@ -1,12 +1,12 @@
 export default {
-  directives: {
-    focus: {
-      // directive definition
-      inserted: function (el) {
-        el.focus()
-      }
-    }
-  },
+  // directives: {
+  //   focus: {
+  //     // directive definition
+  //     inserted: function (el) {
+  //       el.focus()
+  //     }
+  //   }
+  // },
   methods: {
     getApiUrl: function (path) {
       // vue.config.js#devServer:proxyの値と同一にする

@@ -44,8 +44,15 @@
             </ul>
           </li>
 
-          <li class="nav-item">
-            <router-link class="nav-link" to="/generator">Generator</router-link>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Generator</a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><router-link class="dropdown-item" to="/generator">Generator</router-link></li>
+              <li><hr class="dropdown-divider" /></li>
+              <li><router-link class="dropdown-item" to="/generator/import/db">DB定義書</router-link></li>
+              <li><router-link class="dropdown-item" to="/generator/import/api">API定義書</router-link></li>
+              <li><router-link class="dropdown-item" to="/generator/import/interface">IF定義書</router-link></li>
+            </ul>
           </li>
 
           <li class="nav-item">
@@ -73,7 +80,7 @@
       <Loading :active="loading" :can-cancel="true" :is-full-page="true"></Loading>
     </div>
   </nav>
-  <div>
+  <div id="backPage">
     <div v-if="hasBackPageUrl()" style="text-align: left">
       <router-link :to="{ path: backPage }"><button class="btn btn-dark btn-sm">BACK</button></router-link>
     </div>

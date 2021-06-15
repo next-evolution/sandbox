@@ -1,8 +1,20 @@
 <template>
-  <button class="btn btn-dark" @click="modalOpen = true">INDEX</button>
+  <button v-if="list.length > 0" class="btn btn-dark btn-sm" @click="isModalShow = true">INDEX</button>
   <teleport to="#modalBox">
-    <div v-if="modalOpen" class="modal">
+    <div v-if="isModalShow" class="modal">
       <div>
+        <div class="row">
+          <div class="col-sm-10 text-left">Index Information</div>
+          <div class="col-sm-2 text-right">
+            <button ref="btnClose" class="btn btn-dark btn-sm" @click="isModalShow = false">×</button>
+          </div>
+        </div>
+        <div class="row"><hr/></div>
+        <div class="row">
+          <div style="align: left">
+            <h3>{{ title }}</h3>
+          </div>
+        </div>
         <div class="row">
           <table class="table table-striped table-bordered">
             <thead>
@@ -29,11 +41,7 @@
             </tbody>
           </table>
         </div>
-        <div class="row">
-          <div class="col">
-            <button class="btn btn-dark btn-sm form-control" @click="modalOpen = false">CLOSE</button>
-          </div>
-        </div>
+        <div class="row"><hr/></div>
       </div>
     </div>
   </teleport>
@@ -59,7 +67,7 @@
   /* display: flex;
   flex-direction: column;
   justify-content: top; */
-  display: flex;
+  /* display: flex; */
   align-items: center;
   justify-content: center;
   background-color: #fcfcfc;
@@ -72,6 +80,10 @@
 export default {
   name: 'ModalIndexInfo',
   props: {
+    title: {
+      type: String,
+      default: '',
+    },
     list: {
       type: Object,
       default: null,
@@ -79,7 +91,15 @@ export default {
   },
   data: function () {
     return {
-      modalOpen: false,
+      isModalShow: false,
+    }
+  },
+  mounted: function () {
+    document.onkeydown = (evt) => {
+      evt = evt || window.event
+      if (evt.keyCode == 27) {
+        this.isModalShow = false
+      }
     }
   },
 }

@@ -1,9 +1,9 @@
 <template>
-  <div id="mainContent">
-    <Navigator />
-    <div class="container">
-      <div v-if="!login">welcome Vue.js</div>
-      <table v-if="login" class="table table-bordered">
+  <Navigator />
+  <div class="container">
+    <div v-if="!login">welcome Vue.js</div>
+    <div v-if="login" class="row">
+      <table class="table">
         <tbody>
           <tr class="table-dark">
             <td colspan="3">◆ 経済指標 ◆</td>

@@ -6,12 +6,12 @@
       <hr />
       <div class="row">
         <div class="col-auto">
-          <select v-model="schemaName" ref="schemaName" v-on:change="schemaChange" class="form-select">
+          <select v-model="schemaName" ref="schemaName" v-on:change="schemaChange" class="form-select" style="width: auto">
             <option v-for="schema in schemaList" :key="schema" :value="schema">{{ schema }}</option>
           </select>
         </div>
         <div class="col-auto">
-          <select v-model="tableName" ref="tableName" v-on:change="tableChange" class="form-select">
+          <select v-model="tableName" ref="tableName" v-on:change="tableChange" class="form-select" style="width: auto">
             <option v-for="tableInfo in tableInfoList" :key="tableInfo.tableName" :value="tableInfo.tableName">
               {{ tableInfo.tableName }}
             </option>
@@ -19,23 +19,13 @@
         </div>
         <div class="col-auto align-self-center">{{ resultMessage }}</div>
         <div class="col-auto">
-          <button class="btn btn-success btn-sm" @click="selectSql">SELECT</button>
-          <button class="btn btn-info btn-sm" @click="insertSql">INSERT</button>
-          <button class="btn btn-success btn-sm" @click="updateSql">UPDATE</button>
-          <button class="btn btn-info btn-sm" @click="deleteSql">DELETE</button>
-        </div>
-        <div class="col-auto">
+          <button class="btn btn-primary btn-sm" @click="selectSql">SELECT</button>
+          <button class="btn btn-success btn-sm" @click="insertSql">INSERT</button>
+          <button class="btn btn-info btn-sm" @click="updateSql">UPDATE</button>
+          <button class="btn btn-primary btn-sm" @click="deleteSql">DELETE</button>
           <button class="btn btn-success btn-sm" @click="memberSrc">member</button>
-          <button class="btn btn-success btn-sm" @click="propertySrc">property</button>
-        </div>
-        <div class="col-auto">
-          <!-- <button v-b-modal.modalStatistics pill variant="primary" v-show="statisticsList.length > 0">index</button> -->
-          <ModalIndexInfo v-if="modalOpen" :list="statisticsList" />
-        </div>
-        <div class="col-auto">
-          <router-link :to="{ path: importDbUrl }"><button class="btn btn-success btn-sm">DB定義</button></router-link>
-          <router-link :to="{ path: importApiUrl }"><button class="btn btn-success btn-sm">API一覧</button></router-link>
-          <router-link :to="{ path: importInterfaceUrl }"><button class="btn btn-success btn-sm">IF一覧</button></router-link>
+          <button class="btn btn-info btn-sm" @click="propertySrc">property</button>
+          <ModalIndexInfo v-if="statisticsList.length > 0" :title="schemaName + '.' + tableName" :list="statisticsList" />
         </div>
       </div>
 
@@ -78,50 +68,7 @@
           </tr>
         </tbody>
       </table>
-      <!-- <b-table
-        :sticky-header="true"
-        :no-border-collapse="false"
-        responsive="sm"
-        hover
-        striped
-        small
-        bordered
-        :busy="isLoading"
-        :items="columnInfoList"
-        :fields="columnInfoFields"
-        style="text-align: left; max-height: 600px"
-      >
-        <template #table-busy>
-          <div class="text-center text-danger my-2">
-            <b-spinner class="align-middle"></b-spinner>
-            <strong>Loading...</strong>
-          </div>
-        </template>
-        <template v-slot:cell(required)="data">{{ data.value ? '' : '〇' }}</template>
-      </b-table> -->
-
-      <!-- <b-modal id="modalResultCode" title="ResultCode" size="xl" hide-footer>
-        <vue-loading type="spiningDubbles" v-show="isLoadingAjax" color="#333" :size="{ width: '50px', height: '50px' }"></vue-loading>
-        <textarea v-if="!isLoadingAjax" v-model="resultCode" style="font-family: 'ＭＳ ゴシック', 'Monaco'; width: 100%; height: 500px"></textarea>
-      </b-modal> -->
-
-      <!-- size="xl|lg|sm" -->
-      <!-- <b-modal id="modalStatistics" size="lg" title="index" hide-footer>
-        <b-table
-          :sticky-header="true"
-          :no-border-collapse="false"
-          responsive="sm"
-          hover
-          striped
-          small
-          bordered
-          :items="statisticsList"
-          :fields="statisticsFields"
-          style="text-align: left; max-height: 600px"
-        >
-          <template v-slot:cell(nonUnique)="data">{{ data.value ? '' : 'UK' }}</template>
-        </b-table>
-      </b-modal> -->
+      <ModalResultCode v-if="isShowResultCode" :resultCode="resultCode" />
     </div>
   </div>
 </template>
@@ -139,6 +86,7 @@ td {
 import Navigator from '@/components/Navigator.vue'
 import ExecuteButton from '@/components/ExecuteButton.vue'
 import ModalIndexInfo from '@/components/ModalIndexInfo.vue'
+import ModalResultCode from '@/components/ModalResultCode.vue'
 
 export default {
   name: 'GeneratorTop',
@@ -146,6 +94,7 @@ export default {
     Navigator,
     ExecuteButton,
     ModalIndexInfo,
+    ModalResultCode,
   },
   data: function () {
     return {
@@ -166,15 +115,11 @@ export default {
       // apiSuccessCodeStatistics: "GE10040-I0",
 
       importDbUrl: '/generator/import/db',
-      importApiUrl: '/generator/import/api',
-      importInterfaceUrl: '/generator/import/interface',
+      // importApiUrl: '/generator/import/api',
+      // importInterfaceUrl: '/generator/import/interface',
 
       isLoading: false,
-      isLoadingAjax: false,
-      modalOpen: false,
-
-      isIndexModal: false,
-      isResultCodeModal: false,
+      isShowResultCode: false,
 
       resultMessage: '',
 
@@ -308,10 +253,9 @@ export default {
         })
     },
     getCustomCode: function () {
-      this.isLoadingAjax = true
       var vm = this
+      this.isShowResultCode = false
       this.isLoading = true
-      this.isShowModalResultCode = true
       this.axios
         .post(
           this.apiInfoCustom.url,
@@ -333,13 +277,11 @@ export default {
           console.log(response)
           if (vm.apiInfoCustom.messageCode === response.data.messageCode) {
             vm.resultCode = response.data.body.resultCode
-            vm.modalOpen = true
           } else {
-            //            vm.$modal.hide('modalResultCode')
-            this.isShowModalResultCode = false
             vm.resultCode = response.data.messageText
             alert(response.data.messageText)
           }
+          vm.isShowResultCode = true
         })
         .catch(function (error) {
           console.log(error)
@@ -347,7 +289,6 @@ export default {
         })
         .finally(function () {
           vm.isLoading = false
-          vm.isLoadingAjax = false
         })
     },
   },

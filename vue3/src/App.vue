@@ -1,8 +1,6 @@
 <template>
-  <div id="app">
-    <router-view />
-    <footer id="footer">Copyright &copy; 2021 NextEvolution Co.Ltd</footer>
-  </div>
+  <router-view />
+  <footer id="footer">Copyright &copy; 2021 NextEvolution Co.Ltd</footer>
 </template>
 
 <style>

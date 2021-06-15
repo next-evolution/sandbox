@@ -1,63 +1,54 @@
 <template>
-  <div id="mainContent">
-    <Navigator :back-page="backPage" :loading="isLoading" />
-    <div id="resultMessage">{{ resultMessage }}</div>
-    <div v-show="!isInput">
-      <router-link :to="backPage">戻る</router-link>
+  <Navigator :back-page="backPage" :loading="isLoading" />
+  <div id="resultMessage">{{ resultMessage }}</div>
+  <div v-show="!isInput">
+    <router-link :to="backPage">戻る</router-link>
+  </div>
+  <div class="container" v-show="isInput">
+    <div class="row" align-v="center" align-h="start">
+      <div class="col">通貨ペア編集フォーム</div>
     </div>
-    <div class="container" v-show="isInput">
-      <div class="row" align-v="center" align-h="start">
-        <div class="col">通貨ペア編集フォーム</div>
+    <hr />
+    <div class="row" align-v="center" align-h="start">
+      <div class="col-sm-2">
+        <label for="currencyPairCode" class="control-label text-nowrap">通貨ペア</label>
       </div>
-      <hr />
-      <div class="row" align-v="center" align-h="start">
-        <div class="col-sm-2">
-          <label for="currencyPairCode" class="control-label text-nowrap">通貨ペア</label>
-        </div>
-        <div class="col-sm-2">
-          <input type="tel" id="currencyPairCode" ref="currencyPairCode" v-model="currencyPair.currencyPairCode" class="form-control" maxlength="8" />
-        </div>
+      <div class="col-sm-2">
+        <input type="tel" id="currencyPairCode" ref="currencyPairCode" v-model="currencyPair.currencyPairCode" class="form-control" maxlength="8" />
       </div>
-      <hr />
-      <div class="row" align-v="center" align-h="start">
-        <div class="col-sm-2">
-          <label for="currencyPairName" class="control-label text-nowrap">通貨ペア名称</label>
-        </div>
-        <div class="col-sm-3">
-          <input type="text" id="currencyPairName" ref="currencyPairName" v-model="currencyPair.currencyPairName" class="form-control" />
-        </div>
+    </div>
+    <hr />
+    <div class="row" align-v="center" align-h="start">
+      <div class="col-sm-2">
+        <label for="currencyPairName" class="control-label text-nowrap">通貨ペア名称</label>
       </div>
-      <hr />
-      <div class="row" align-v="center" align-h="start">
-        <div class="col-sm-2">
-          <label for="profitVolatility" class="control-label text-nowrap">警告値幅</label>
-        </div>
-        <div class="col-sm-2">
-          <input
-            type="tel"
-            id="profitVolatility"
-            ref="profitVolatility"
-            v-model="currencyPair.profitVolatility"
-            class="form-control"
-            maxlength="12"
-          />
-        </div>
+      <div class="col-sm-3">
+        <input type="text" id="currencyPairName" ref="currencyPairName" v-model="currencyPair.currencyPairName" class="form-control" />
       </div>
-      <hr />
-      <div class="row" align-v="center" align-h="start">
-        <div class="col-sm-2">
-          <label for="sortOrder" class="control-label text-nowrap">SortOrder</label>
-        </div>
-        <div class="col-sm-2">
-          <input type="tel" id="sortOrder" ref="sortOrder" v-model="currencyPair.sortOrder" class="form-control" maxlength="5" />
-        </div>
+    </div>
+    <hr />
+    <div class="row" align-v="center" align-h="start">
+      <div class="col-sm-2">
+        <label for="profitVolatility" class="control-label text-nowrap">警告値幅</label>
       </div>
-      <hr />
-      <div class="row" align-v="center" align-h="start">
-        <div class="col-sm-2"></div>
-        <div class="col-auto">
-          <ExecuteButton type="update" @buttonClick="updateApi" />
-        </div>
+      <div class="col-sm-2">
+        <input type="tel" id="profitVolatility" ref="profitVolatility" v-model="currencyPair.profitVolatility" class="form-control" maxlength="12" />
+      </div>
+    </div>
+    <hr />
+    <div class="row" align-v="center" align-h="start">
+      <div class="col-sm-2">
+        <label for="sortOrder" class="control-label text-nowrap">SortOrder</label>
+      </div>
+      <div class="col-sm-2">
+        <input type="tel" id="sortOrder" ref="sortOrder" v-model="currencyPair.sortOrder" class="form-control" maxlength="5" />
+      </div>
+    </div>
+    <hr />
+    <div class="row" align-v="center" align-h="start">
+      <div class="col-sm-2"></div>
+      <div class="col-auto">
+        <ExecuteButton type="update" @buttonClick="updateApi" />
       </div>
     </div>
   </div>
@@ -114,6 +105,7 @@ export default {
   },
   mounted: function () {
     this.isLoading = true
+    this.$refs.currencyPairCode.focus()
     var vm = this
     this.axios
       .get(this.apiInfoSelect.url + '?apiCode=' + this.apiInfoSelect.apiCode + '&currencyPairCode=' + this.$route.params.currencyPairCode, {

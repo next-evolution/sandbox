@@ -1,34 +1,32 @@
 <template>
-  <div id="mainContent">
-    <Navigator :loading="isLoading" />
-    <div class="container">
-      <div style="text-align: left">
-        国マスタ：<span style="padding-right: 30px">{{ apiResponse.messageText }}</span>
-        <router-link :to="{ name: 'FxCountryAdd' }">
-          <button class="btn btn-primary" size="sm">国マスタ追加</button>
-        </router-link>
-      </div>
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th>Code</th>
-            <th>Name</th>
-            <th>NameEn</th>
-            <th>NameShort</th>
-            <th>Order</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="country in countryList" v-bind:key="country.countryCode" v-on:click="select(country.countryCode)">
-            <td>{{ country.countryCode }}</td>
-            <td>{{ country.countryName }}</td>
-            <td>{{ country.countryNameEn }}</td>
-            <td>{{ country.countryNameShort }}</td>
-            <td>{{ country.sortOrder }}</td>
-          </tr>
-        </tbody>
-      </table>
+  <Navigator :loading="isLoading" />
+  <div class="container">
+    <div style="text-align: left">
+      国マスタ：<span style="padding-right: 30px">{{ apiResponse.messageText }}</span>
+      <router-link :to="{ name: 'FxCountryAdd' }">
+        <button class="btn btn-primary" size="sm">国マスタ追加</button>
+      </router-link>
     </div>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Code</th>
+          <th>Name</th>
+          <th>NameEn</th>
+          <th>NameShort</th>
+          <th>Order</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="country in countryList" v-bind:key="country.countryCode" v-on:click="select(country.countryCode)">
+          <td>{{ country.countryCode }}</td>
+          <td>{{ country.countryName }}</td>
+          <td>{{ country.countryNameEn }}</td>
+          <td>{{ country.countryNameShort }}</td>
+          <td>{{ country.sortOrder }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 

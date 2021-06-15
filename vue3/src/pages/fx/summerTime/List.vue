@@ -1,30 +1,28 @@
 <template>
-  <div id="mainContent">
-    <Navigator :loading="isLoading" />
-    <div class="container">
-      <div style="text-align: left">
-        夏時間設定：<span style="padding-right: 30px">{{ apiResponse.messageText }}</span>
-        <router-link :to="{ name: 'FxSummerTimeAdd' }">
-          <button class="btn btn-primary" size="sm">夏時間追加</button>
-        </router-link>
-      </div>
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th>targetYear</th>
-            <th>applyStart</th>
-            <th>applyEnd</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="summerTime in summerTimeList" v-bind:key="summerTime.targetYear" v-on:click="select(summerTime.targetYear)">
-            <td>{{ summerTime.targetYear }}</td>
-            <td>{{ summerTime.applyStart }}</td>
-            <td>{{ summerTime.applyEnd }}</td>
-          </tr>
-        </tbody>
-      </table>
+  <Navigator :loading="isLoading" />
+  <div class="container">
+    <div style="text-align: left">
+      夏時間設定：<span style="padding-right: 30px">{{ apiResponse.messageText }}</span>
+      <router-link :to="{ name: 'FxSummerTimeAdd' }">
+        <button class="btn btn-primary" size="sm">夏時間追加</button>
+      </router-link>
     </div>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>targetYear</th>
+          <th>applyStart</th>
+          <th>applyEnd</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="summerTime in summerTimeList" v-bind:key="summerTime.targetYear" v-on:click="select(summerTime.targetYear)">
+          <td>{{ summerTime.targetYear }}</td>
+          <td>{{ summerTime.applyStart }}</td>
+          <td>{{ summerTime.applyEnd }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 

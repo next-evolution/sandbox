@@ -1,76 +1,74 @@
 <template>
-  <div id="mainContent">
-    <Navigator :back-page="backPage" :loading="isLoading" />
-    <div id="resultMessage">{{ resultMessage }}</div>
-    <div v-show="!isInput">
-      <router-link :to="backPage">戻る</router-link>
-      <br />
-      <button class="btn-primary" v-on:click="initialize">続けて登録</button>
+  <Navigator :back-page="backPage" :loading="isLoading" />
+  <div id="resultMessage">{{ resultMessage }}</div>
+  <div v-show="!isInput">
+    <router-link :to="backPage">戻る</router-link>
+    <br />
+    <button class="btn-primary" v-on:click="initialize">続けて登録</button>
+  </div>
+  <div class="container" v-show="isInput">
+    <div class="row" align-v="center" align-h="start">
+      <div class="col-auto">経済指標マスタ登録フォーム</div>
     </div>
-    <div class="container" v-show="isInput">
-      <div class="row" align-v="center" align-h="start">
-        <div class="col-auto">経済指標マスタ登録フォーム</div>
+    <hr />
+    <div class="row" align-v="center" align-h="start">
+      <div class="col-sm-2">
+        <label for="countryCode" class="control-label text-nowrap">国コード</label>
       </div>
-      <hr />
-      <div class="row" align-v="center" align-h="start">
-        <div class="col-sm-2">
-          <label for="countryCode" class="control-label text-nowrap">国コード</label>
-        </div>
-        <div class="col-auto">
-          <select v-model="economicIndicator.countryCode" ref="countryCode" class="form-select">
-            <option v-for="country in countryList" v-bind:key="country.countryCode" v-bind:value="country.countryCode">
-              {{ country.countryName }}
-            </option>
-          </select>
-        </div>
+      <div class="col-auto">
+        <select v-model="economicIndicator.countryCode" ref="countryCode" class="form-select">
+          <option v-for="country in countryList" v-bind:key="country.countryCode" v-bind:value="country.countryCode">
+            {{ country.countryName }}
+          </option>
+        </select>
       </div>
-      <hr />
-      <div class="row" align-v="center" align-h="start">
-        <div class="col-sm-2">
-          <label for="economicIndicatorName" class="control-label text-nowrap">経済指標名称</label>
-        </div>
-        <div class="col-sm-6">
-          <input
-            type="text"
-            id="economicIndicatorName"
-            ref="economicIndicatorName"
-            v-model="economicIndicator.economicIndicatorName"
-            class="form-control"
-            maxlength="64"
-          />
-        </div>
+    </div>
+    <hr />
+    <div class="row" align-v="center" align-h="start">
+      <div class="col-sm-2">
+        <label for="economicIndicatorName" class="control-label text-nowrap">経済指標名称</label>
       </div>
-      <hr />
-      <div class="row" align-v="center" align-h="start">
-        <div class="col-sm-2">
-          <label for="economicIndicatorDescription" class="control-label text-nowrap">詳細</label>
-        </div>
-        <div class="col-sm-6">
-          <input
-            type="text"
-            id="economicIndicatorDescription"
-            ref="economicIndicatorDescription"
-            v-model="economicIndicator.economicIndicatorDescription"
-            class="form-control"
-            maxlength="64"
-          />
-        </div>
+      <div class="col-sm-6">
+        <input
+          type="text"
+          id="economicIndicatorName"
+          ref="economicIndicatorName"
+          v-model="economicIndicator.economicIndicatorName"
+          class="form-control"
+          maxlength="64"
+        />
       </div>
-      <hr />
-      <div class="row" align-v="center" align-h="start">
-        <div class="col-sm-2">
-          <label for="unitOfValue" class="control-label text-nowrap">単位</label>
-        </div>
-        <div class="col-sm-2">
-          <input type="text" id="unitOfValue" ref="unitOfValue" v-model="economicIndicator.unitOfValue" class="form-control" maxlength="16" />
-        </div>
+    </div>
+    <hr />
+    <div class="row" align-v="center" align-h="start">
+      <div class="col-sm-2">
+        <label for="economicIndicatorDescription" class="control-label text-nowrap">詳細</label>
       </div>
-      <hr />
-      <div class="row" align-v="center" align-h="start">
-        <div class="col-sm-2"></div>
-        <div class="col-auto">
-          <ExecuteButton type="insert" @buttonClick="insertApi" />
-        </div>
+      <div class="col-sm-6">
+        <input
+          type="text"
+          id="economicIndicatorDescription"
+          ref="economicIndicatorDescription"
+          v-model="economicIndicator.economicIndicatorDescription"
+          class="form-control"
+          maxlength="64"
+        />
+      </div>
+    </div>
+    <hr />
+    <div class="row" align-v="center" align-h="start">
+      <div class="col-sm-2">
+        <label for="unitOfValue" class="control-label text-nowrap">単位</label>
+      </div>
+      <div class="col-sm-2">
+        <input type="text" id="unitOfValue" ref="unitOfValue" v-model="economicIndicator.unitOfValue" class="form-control" maxlength="16" />
+      </div>
+    </div>
+    <hr />
+    <div class="row" align-v="center" align-h="start">
+      <div class="col-sm-2"></div>
+      <div class="col-auto">
+        <ExecuteButton type="insert" @buttonClick="insertApi" />
       </div>
     </div>
   </div>
@@ -128,6 +126,7 @@ export default {
   },
   mounted: function () {
     this.isLoading = true
+    this.$refs.countryCode.focus()
     var vm = this
     this.axios
       .get(this.apiInfoSelect.url + '?apiCode=' + this.apiInfoSelect.apiCode, {

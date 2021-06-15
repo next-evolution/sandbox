@@ -1,67 +1,65 @@
 <template>
-  <div id="mainContent">
-    <Navigator :back-page="backPage" :loading="isLoading" />
-    <div id="resultMessage">{{ resultMessage }}</div>
-    <div v-show="!isInput">
-      <router-link :to="backPage">戻る</router-link>
-      <br />
-      <button class="btn-primary" v-on:click="initialize">続けて登録</button>
+  <Navigator :back-page="backPage" :loading="isLoading" />
+  <div id="resultMessage">{{ resultMessage }}</div>
+  <div v-show="!isInput">
+    <router-link :to="backPage">戻る</router-link>
+    <br />
+    <button class="btn-primary" v-on:click="initialize">続けて登録</button>
+  </div>
+  <div class="container" v-show="isInput">
+    <div class="row" align-v="center" align-h="start">
+      <div class="col">国マスタ登録フォーム</div>
     </div>
-    <div class="container" v-show="isInput">
-      <div class="row" align-v="center" align-h="start">
-        <div class="col">国マスタ登録フォーム</div>
+    <hr />
+    <div class="row" align-v="center" align-h="start">
+      <div class="col-sm-2">
+        <label for="countryCode" class="control-label text-nowrap">国コード</label>
       </div>
-      <hr />
-      <div class="row" align-v="center" align-h="start">
-        <div class="col-sm-2">
-          <label for="countryCode" class="control-label text-nowrap">国コード</label>
-        </div>
-        <div class="col-sm-2">
-          <input type="tel" id="countryCode" ref="countryCode" v-model="country.countryCode" class="form-control" maxlength="8" />
-        </div>
+      <div class="col-sm-2">
+        <input type="tel" id="countryCode" ref="countryCode" v-model="country.countryCode" class="form-control" maxlength="8" />
       </div>
-      <hr />
-      <div class="row" align-v="center" align-h="start">
-        <div class="col-sm-2">
-          <label for="countryName" class="control-label text-nowrap">国名称</label>
-        </div>
-        <div class="col-sm-4">
-          <input type="text" id="countryName" ref="countryName" v-model="country.countryName" class="form-control" maxlength="64" />
-        </div>
+    </div>
+    <hr />
+    <div class="row" align-v="center" align-h="start">
+      <div class="col-sm-2">
+        <label for="countryName" class="control-label text-nowrap">国名称</label>
       </div>
-      <hr />
-      <div class="row" align-v="center" align-h="start">
-        <div class="col-sm-2">
-          <label for="countryNameEn" class="control-label text-nowrap">英語表記</label>
-        </div>
-        <div class="col-sm-4">
-          <input type="tel" id="countryNameEn" ref="countryNameEn" v-model="country.countryNameEn" class="form-control" maxlength="64" />
-        </div>
+      <div class="col-sm-4">
+        <input type="text" id="countryName" ref="countryName" v-model="country.countryName" class="form-control" maxlength="64" />
       </div>
-      <hr />
-      <div class="row" align-v="center" align-h="start">
-        <div class="col-sm-2">
-          <label for="countryNameShort" class="control-label text-nowrap">略称</label>
-        </div>
-        <div class="col-sm-2">
-          <input type="text" id="countryNameShort" ref="countryNameShort" v-model="country.countryNameShort" class="form-control" maxlength="2" />
-        </div>
+    </div>
+    <hr />
+    <div class="row" align-v="center" align-h="start">
+      <div class="col-sm-2">
+        <label for="countryNameEn" class="control-label text-nowrap">英語表記</label>
       </div>
-      <hr />
-      <div class="row" align-v="center" align-h="start">
-        <div class="col-sm-2">
-          <label for="sortOrder" class="control-label text-nowrap">SortOrder</label>
-        </div>
-        <div class="col-sm-2">
-          <input type="tel" id="sortOrder" ref="sortOrder" v-model="country.sortOrder" class="form-control" maxlength="5" />
-        </div>
+      <div class="col-sm-4">
+        <input type="tel" id="countryNameEn" ref="countryNameEn" v-model="country.countryNameEn" class="form-control" maxlength="64" />
       </div>
-      <hr />
-      <div class="row" align-v="center" align-h="start">
-        <div class="col-sm-2"></div>
-        <div class="col-auto">
-          <ExecuteButton type="insert" @buttonClick="insertApi" />
-        </div>
+    </div>
+    <hr />
+    <div class="row" align-v="center" align-h="start">
+      <div class="col-sm-2">
+        <label for="countryNameShort" class="control-label text-nowrap">略称</label>
+      </div>
+      <div class="col-sm-2">
+        <input type="text" id="countryNameShort" ref="countryNameShort" v-model="country.countryNameShort" class="form-control" maxlength="2" />
+      </div>
+    </div>
+    <hr />
+    <div class="row" align-v="center" align-h="start">
+      <div class="col-sm-2">
+        <label for="sortOrder" class="control-label text-nowrap">SortOrder</label>
+      </div>
+      <div class="col-sm-2">
+        <input type="tel" id="sortOrder" ref="sortOrder" v-model="country.sortOrder" class="form-control" maxlength="5" />
+      </div>
+    </div>
+    <hr />
+    <div class="row" align-v="center" align-h="start">
+      <div class="col-sm-2"></div>
+      <div class="col-auto">
+        <ExecuteButton type="insert" @buttonClick="insertApi" />
       </div>
     </div>
   </div>

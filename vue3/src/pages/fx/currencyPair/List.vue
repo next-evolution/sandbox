@@ -1,34 +1,32 @@
 <template>
-  <div id="mainContent">
-    <Navigator :loading="isLoading" />
-    <div class="container">
-      <div style="text-align: left">
-        通貨ペアマスタ：
-        <span style="padding-right: 30px">{{ apiResponse.messageText }}</span>
-        <router-link :to="{ name: 'FxCurrencyPairAdd' }">
-          <button class="btn btn-primary" size="sm">通貨ペア追加</button>
-        </router-link>
-      </div>
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th>Code</th>
-            <th>Name</th>
-            <th>Volatility</th>
-            <th>Order</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="currencyPair in currencyPairList" v-bind:key="currencyPair.currencyPairCode" v-on:click="select(currencyPair.currencyPairCode)">
-            <!-- <td><router-link :to="`/fx/country/edit/${country.countryCode}`">{{country.countryCode}}</router-link></td> -->
-            <td>{{ currencyPair.currencyPairCode }}</td>
-            <td>{{ currencyPair.currencyPairName }}</td>
-            <td>{{ currencyPair.profitVolatility }}</td>
-            <td>{{ currencyPair.sortOrder }}</td>
-          </tr>
-        </tbody>
-      </table>
+  <Navigator :loading="isLoading" />
+  <div class="container">
+    <div style="text-align: left">
+      通貨ペアマスタ：
+      <span style="padding-right: 30px">{{ apiResponse.messageText }}</span>
+      <router-link :to="{ name: 'FxCurrencyPairAdd' }">
+        <button class="btn btn-primary" size="sm">通貨ペア追加</button>
+      </router-link>
     </div>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Code</th>
+          <th>Name</th>
+          <th>Volatility</th>
+          <th>Order</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="currencyPair in currencyPairList" v-bind:key="currencyPair.currencyPairCode" v-on:click="select(currencyPair.currencyPairCode)">
+          <!-- <td><router-link :to="`/fx/country/edit/${country.countryCode}`">{{country.countryCode}}</router-link></td> -->
+          <td>{{ currencyPair.currencyPairCode }}</td>
+          <td>{{ currencyPair.currencyPairName }}</td>
+          <td>{{ currencyPair.profitVolatility }}</td>
+          <td>{{ currencyPair.sortOrder }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 

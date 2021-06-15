@@ -1,46 +1,44 @@
 <template>
-  <div id="mainContent">
-    <Navigator :loading="isLoading" />
-    <div class="container">
-      <hr />
-      <div v-if="!isLoading" class="row">
-        <div class="col-auto align-self-center">フロント日：</div>
-        <div class="col-auto">
-          <select v-show="!isLoading" v-model="frontDate" ref="frontDate" class="form-select">
-            <option v-for="frontDate in frontDateList" :key="frontDate">{{ frontDate }}</option>
-          </select>
-        </div>
-        <div class="col-sm-2">
-          <input type="text" v-model="frontDateManual" class="form-control" placeholder="fron date" />
-        </div>
-        <div class="col-auto">
-          <button class="btn btn-primary" v-on:click="generateApi">Generate</button>
-        </div>
+  <Navigator :loading="isLoading" />
+  <div class="container">
+    <hr />
+    <div v-if="!isLoading" class="row">
+      <div class="col-auto align-self-center">フロント日：</div>
+      <div class="col-auto">
+        <select v-show="!isLoading" v-model="frontDate" ref="frontDate" class="form-select">
+          <option v-for="frontDate in frontDateList" :key="frontDate">{{ frontDate }}</option>
+        </select>
       </div>
-      <hr />
-      <table class="table table-striped">
-        <thead>
-          <th>currencyPair</th>
-          <th>30m</th>
-          <th>Hour</th>
-          <th>Count</th>
-          <th>Day</th>
-          <th>Count</th>
-          <th>Status</th>
-        </thead>
-        <tbody>
-          <tr v-for="generateResult in generateResultList" :key="generateResult.currencyPair">
-            <td>{{ generateResult.currencyPairCode }}</td>
-            <td>{{ generateResult.latestFrontDate30m }}</td>
-            <td>{{ generateResult.latestFrontDateHour }}</td>
-            <td>{{ generateResult.generateCountHour }}</td>
-            <td>{{ generateResult.latestFrontDateDay }}</td>
-            <td>{{ generateResult.generateCountDay }}</td>
-            <td>{{ generateResult.generateStatus }}</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="col-sm-2">
+        <input type="text" v-model="frontDateManual" class="form-control" placeholder="fron date" />
+      </div>
+      <div class="col-auto">
+        <button class="btn btn-primary" v-on:click="generateApi">Generate</button>
+      </div>
     </div>
+    <hr />
+    <table class="table table-striped">
+      <thead>
+        <th>currencyPair</th>
+        <th>30m</th>
+        <th>Hour</th>
+        <th>Count</th>
+        <th>Day</th>
+        <th>Count</th>
+        <th>Status</th>
+      </thead>
+      <tbody>
+        <tr v-for="generateResult in generateResultList" :key="generateResult.currencyPair">
+          <td>{{ generateResult.currencyPairCode }}</td>
+          <td>{{ generateResult.latestFrontDate30m }}</td>
+          <td>{{ generateResult.latestFrontDateHour }}</td>
+          <td>{{ generateResult.generateCountHour }}</td>
+          <td>{{ generateResult.latestFrontDateDay }}</td>
+          <td>{{ generateResult.generateCountDay }}</td>
+          <td>{{ generateResult.generateStatus }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
@@ -113,6 +111,7 @@ export default {
       })
       .finally(function () {
         vm.isLoading = false
+        vm.$nextTick(() => vm.$refs.frontDate.focus())
       })
   },
   methods: {
@@ -174,7 +173,7 @@ export default {
       } else {
         this.resultMessage = '( - o - ) Csv Upload Error. ( - o - )'
       }
-      alert(this.resultMessage)
+      vm.$nextTick(() => alert(this.resultMessage))
     },
   },
 }

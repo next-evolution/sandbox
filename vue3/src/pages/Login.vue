@@ -1,33 +1,31 @@
 <template>
-  <div id="mainContent">
-    <Navigator :loading="isLoading" />
-    <div class="container">
-      <div class="mb-3 row"><h3>LOGIN</h3></div>
-      <hr />
-      <div class="mb-3 row">
-        <label for="emailAddress" class="col-sm-2 col-form-label text-nowrap">Emailアドレス</label>
-        <div class="col-sm-6">
-          <input type="email" ref="emailAddress" v-model="emailAddress" v-focus class="form-control" maxlength="128" />
-        </div>
-        <div class="col-sm-4"></div>
+  <Navigator :loading="isLoading" />
+  <div class="container">
+    <div class="mb-3 row"><h3>LOGIN</h3></div>
+    <hr />
+    <div class="mb-3 row">
+      <label for="emailAddress" class="col-sm-2 col-form-label text-nowrap">Emailアドレス</label>
+      <div class="col-sm-6">
+        <input type="email" ref="emailAddress" v-model="emailAddress" class="form-control" maxlength="128" />
       </div>
-      <div class="mb-3 row">
-        <label for="loginPassword" class="col-sm-2 col-form-label text-nowrap">パスワード</label>
-        <div class="col-sm-4">
-          <input type="password" ref="loginPassword" v-model="loginPassword" class="form-control" maxlength="128" />
-        </div>
-        <div class="col-sm-6"></div>
+      <div class="col-sm-4"></div>
+    </div>
+    <div class="mb-3 row">
+      <label for="loginPassword" class="col-sm-2 col-form-label text-nowrap">パスワード</label>
+      <div class="col-sm-4">
+        <input type="password" ref="loginPassword" v-model="loginPassword" class="form-control" maxlength="128" />
       </div>
-      <hr />
-      <div class="mb-3 row">
-        <div class="col-sm-2"></div>
-        <div class="col-auto"><ExecuteButton type="login" @buttonClick="loginApi" /></div>
-      </div>
-      <div class="row">
-        <div class="col-sm-2"></div>
-        <div class="col-auto">
-          <textarea cols="80" rows="5" v-model="resultText" class="form-control"></textarea>
-        </div>
+      <div class="col-sm-6"></div>
+    </div>
+    <hr />
+    <div class="mb-3 row">
+      <div class="col-sm-2"></div>
+      <div class="col-auto"><ExecuteButton type="login" @buttonClick="loginApi" /></div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2"></div>
+      <div class="col-auto">
+        <textarea cols="80" rows="5" v-model="resultText" class="form-control"></textarea>
       </div>
     </div>
   </div>
@@ -62,6 +60,7 @@ export default {
   },
   mounted: async function () {
     this.csrfToken = await this.getCsrfToken(this)
+    this.$refs.emailAddress.focus()
   },
   methods: {
     loginApi: function () {

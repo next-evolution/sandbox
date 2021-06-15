@@ -1,97 +1,90 @@
 <template>
-  <div id="mainContent">
-    <Navigator :loading="isLoading" />
-    <div class="container">
-      <div id="resultMessage">{{ resultMessage }}</div>
-      <div v-show="!isInput">
-        <router-link to="/">戻る</router-link>
+  <Navigator :loading="isLoading" />
+  <div class="container">
+    <div id="resultMessage">{{ resultMessage }}</div>
+    <div class="row" align-v="center" align-h="start">
+      <div>
+        ユーザ新規登録フォーム
+        <div style="width: 1px; height: 1px; overflow: hidden">
+          <input type="text" id="dummyInput" name="dummyInput" />
+          <input type="password" id="dummyPasswd" name="dummyPasswd" />
+        </div>
       </div>
-      <div v-show="isInput">
-        <div class="row" align-v="center" align-h="start">
-          <div>
-            ユーザ新規登録フォーム
-            <div style="width: 1px; height: 1px; overflow: hidden">
-              <input type="text" id="dummyInput" name="dummyInput" />
-              <input type="password" id="dummyPasswd" name="dummyPasswd" />
-            </div>
-          </div>
-        </div>
-        <hr />
-        <div class="row" align-v="center" align-h="start">
-          <div class="col-sm-2">
-            <label for="emailAddress" class="control-label text-nowrap">Email</label>
-          </div>
-          <div class="col-sm-8">
-            <input type="email" class="form-control" id="emailAddress" ref="emailAddress" v-model="emailAddress" v-focus maxlength="128" />
-          </div>
-          <div class="col-sm-2"></div>
-        </div>
-        <hr />
-        <div class="row" align-v="center" align-h="start">
-          <div class="col-sm-2">
-            <label for="userName" class="control-label text-nowrap">氏名</label>
-          </div>
-          <div class="col-sm-3">
-            <input type="text" class="form-control" id="familyName" ref="familyName" v-model="familyName" maxlength="64" />
-          </div>
-          <div class="col-sm-3">
-            <input type="text" class="form-control" id="firstName" ref="firstName" v-model="firstName" maxlength="64" />
-          </div>
-          <div class="col-sm-4" style="text-align: left">例）在日 悪子</div>
-        </div>
-        <hr />
-        <div class="row" align-v="center" align-h="start">
-          <div class="col-sm-2">
-            <label for="userNameEn" class="control-label text-nowrap">英字</label>
-          </div>
-          <div class="col-sm-3">
-            <input type="text" class="form-control" id="familyNameEn" ref="familyNameEn" v-model="familyNameEn" maxlength="64" />
-          </div>
-          <div class="col-sm-3">
-            <input type="text" class="form-control" id="firstNameEn" ref="firstNameEn" v-model="firstNameEn" maxlength="64" />
-          </div>
-          <div class="col-sm-4" style="text-align: left">例）zainichi waruko</div>
-        </div>
-        <hr />
-        <div class="row" align-v="center" align-h="start">
-          <div class="col-sm-2">
-            <label for="sexFlag" class="control-label text-nowrap">性別</label>
-          </div>
-          <div class="col-sm-2"><input type="radio" v-model="sexFlag" name="sexFlag" ref="sexFlag" value="1" />男性</div>
-          <div class="col-sm-2"><input type="radio" v-model="sexFlag" name="sexFlag" value="2" />女性</div>
-          <div class="col-sm-6"></div>
-        </div>
-        <hr />
-        <div class="row" align-v="center" align-h="start">
-          <div class="col-sm-2">
-            <label for="birthday" class="control-label text-nowrap">生年月日</label>
-          </div>
-          <div class="col-sm-3">
-            <input type="date" class="form-control" id="birthday" ref="birthday" v-model="birthdayInput" />
-          </div>
-          <div class="col-sm-7"></div>
-        </div>
-        <hr />
-        <div class="row" align-v="center" align-h="start">
-          <div class="col-sm-2">
-            <label for="loginPassword" class="control-label text-nowrap">パスワード</label>
-          </div>
-          <div class="col-sm-6">
-            <input type="password" class="form-control" id="loginPassword" ref="loginPassword" v-model="loginPassword" maxlength="64" />
-            <input type="password" class="form-control" id="checkPassword" ref="checkPassword" v-model="checkPassword" maxlength="64" />
-          </div>
-          <div class="col-sm-4" style="text-align: left">
-            <br />
-            <br />(確認用)
-          </div>
-        </div>
-        <hr />
-        <div class="row" align-v="center" align-h="start">
-          <div class="col-sm-2"></div>
-          <div class="col-auto">
-            <ExecuteButton type="insert" @buttonClick="insertApi" />
-          </div>
-        </div>
+    </div>
+    <hr />
+    <div class="row" align-v="center" align-h="start">
+      <div class="col-sm-2">
+        <label for="emailAddress" class="control-label text-nowrap">Email</label>
+      </div>
+      <div class="col-sm-8">
+        <input type="email" class="form-control" id="emailAddress" ref="emailAddress" v-model="emailAddress" maxlength="128" />
+      </div>
+      <div class="col-sm-2"></div>
+    </div>
+    <hr />
+    <div class="row" align-v="center" align-h="start">
+      <div class="col-sm-2">
+        <label for="userName" class="control-label text-nowrap">氏名</label>
+      </div>
+      <div class="col-sm-3">
+        <input type="text" class="form-control" id="familyName" ref="familyName" v-model="familyName" maxlength="64" />
+      </div>
+      <div class="col-sm-3">
+        <input type="text" class="form-control" id="firstName" ref="firstName" v-model="firstName" maxlength="64" />
+      </div>
+      <div class="col-sm-4" style="text-align: left">例）在日 悪子</div>
+    </div>
+    <hr />
+    <div class="row" align-v="center" align-h="start">
+      <div class="col-sm-2">
+        <label for="userNameEn" class="control-label text-nowrap">英字</label>
+      </div>
+      <div class="col-sm-3">
+        <input type="text" class="form-control" id="familyNameEn" ref="familyNameEn" v-model="familyNameEn" maxlength="64" />
+      </div>
+      <div class="col-sm-3">
+        <input type="text" class="form-control" id="firstNameEn" ref="firstNameEn" v-model="firstNameEn" maxlength="64" />
+      </div>
+      <div class="col-sm-4" style="text-align: left">例）zainichi waruko</div>
+    </div>
+    <hr />
+    <div class="row" align-v="center" align-h="start">
+      <div class="col-sm-2">
+        <label for="sexFlag" class="control-label text-nowrap">性別</label>
+      </div>
+      <div class="col-sm-2"><input type="radio" v-model="sexFlag" name="sexFlag" ref="sexFlag" value="1" />男性</div>
+      <div class="col-sm-2"><input type="radio" v-model="sexFlag" name="sexFlag" value="2" />女性</div>
+      <div class="col-sm-6"></div>
+    </div>
+    <hr />
+    <div class="row" align-v="center" align-h="start">
+      <div class="col-sm-2">
+        <label for="birthday" class="control-label text-nowrap">生年月日</label>
+      </div>
+      <div class="col-sm-3">
+        <input type="date" class="form-control" id="birthday" ref="birthday" v-model="birthdayInput" />
+      </div>
+      <div class="col-sm-7"></div>
+    </div>
+    <hr />
+    <div class="row" align-v="center" align-h="start">
+      <div class="col-sm-2">
+        <label for="loginPassword" class="control-label text-nowrap">パスワード</label>
+      </div>
+      <div class="col-sm-6">
+        <input type="password" class="form-control" id="loginPassword" ref="loginPassword" v-model="loginPassword" maxlength="64" />
+        <input type="password" class="form-control" id="checkPassword" ref="checkPassword" v-model="checkPassword" maxlength="64" />
+      </div>
+      <div class="col-sm-4" style="text-align: left">
+        <br />
+        <br />(確認用)
+      </div>
+    </div>
+    <hr />
+    <div class="row" align-v="center" align-h="start">
+      <div class="col-sm-2"></div>
+      <div class="col-auto">
+        <ExecuteButton type="insert" @buttonClick="insertApi" />
       </div>
     </div>
   </div>
@@ -116,7 +109,6 @@ export default {
       },
 
       isLoading: false,
-      isInput: true,
       resultMessage: '',
 
       birthdayInput: '',
@@ -144,6 +136,7 @@ export default {
   mounted: async function () {
     this.birthdayInput = this.dateFormat(new Date(1985, 0, 1), 'yyyy-MM-dd')
     this.csrfToken = await this.getCsrfToken(this)
+    this.$refs.emailAddress.focus()
   },
   methods: {
     insertApi: function () {
@@ -229,7 +222,6 @@ export default {
         .then(function (response) {
           console.log(response)
           if (vm.apiInfo.messageCode === response.data.messageCode) {
-            vm.isInput = false
             vm.$router.push('/account/activation')
           }
           vm.resultMessage = response.data.messageText

@@ -1,52 +1,50 @@
 <template>
-  <div id="mainContent">
-    <Navigator :loading="isLoading" />
-    <div id="resultMessage">{{ resultMessage }}</div>
-    <div v-show="!isInput">
-      <router-link to="/">戻る</router-link>
-    </div>
-    <div class="container" v-show="isInput">
-      <div class="row" align-v="center" align-h="start">
-        <div class="col">
-          ◆ パスワード変更フォーム ◆
-          <!-- <div style="display: none; width: 1px; height: 1px; overflow: hidden;">
+  <Navigator :loading="isLoading" />
+  <div id="resultMessage">{{ resultMessage }}</div>
+  <div v-show="!isInput">
+    <router-link to="/">戻る</router-link>
+  </div>
+  <div class="container" v-show="isInput">
+    <div class="row" align-v="center" align-h="start">
+      <div class="col">
+        ◆ パスワード変更フォーム ◆
+        <!-- <div style="display: none; width: 1px; height: 1px; overflow: hidden;">
             <input type="text" id="dummyInput" name="dummyInput" />
             <input type="password" id="dummyPasswd" name="dummyPasswd" />
           </div> -->
-        </div>
       </div>
-      <hr />
-      <div class="row" align-v="center" align-h="start">
-        <div class="col-sm-2">
-          <label for="loginPassword" class="control-label text-nowrap">パスワード</label>
-        </div>
-        <div class="col-sm-5">
-          <input type="password" id="loginPassword" ref="loginPassword" v-model="loginPassword" class="form-control" maxlength="64" />
-        </div>
-        <div></div>
+    </div>
+    <hr />
+    <div class="row" align-v="center" align-h="start">
+      <div class="col-sm-2">
+        <label for="loginPassword" class="control-label text-nowrap">パスワード</label>
       </div>
-      <hr />
-      <div class="row" align-v="center" align-h="start">
-        <div class="col-sm-2">
-          <label for="loginPassword" class="control-label text-nowrap">新しいパスワード</label>
-        </div>
-        <div class="col-sm-5">
-          <input type="password" id="loginPasswordNew" ref="loginPasswordNew" v-model="loginPasswordNew" class="form-control" maxlength="64" />
-          <input type="password" id="checkPassword" ref="checkPassword" v-model="checkPassword" class="form-control" maxlength="64" />
-        </div>
-        <div class="col" style="text-align: left">
-          <br />
-          <br />(確認用)
-        </div>
+      <div class="col-sm-5">
+        <input type="password" id="loginPassword" ref="loginPassword" v-model="loginPassword" class="form-control" maxlength="64" />
       </div>
-      <hr />
-      <div class="row" align-v="center" align-h="start">
-        <div class="col-sm-2"></div>
-        <div class="col-auto">
-          <ExecuteButton type="update" @buttonClick="updateApi" />
-        </div>
-        <div></div>
+      <div></div>
+    </div>
+    <hr />
+    <div class="row" align-v="center" align-h="start">
+      <div class="col-sm-2">
+        <label for="loginPassword" class="control-label text-nowrap">新しいパスワード</label>
       </div>
+      <div class="col-sm-5">
+        <input type="password" id="loginPasswordNew" ref="loginPasswordNew" v-model="loginPasswordNew" class="form-control" maxlength="64" />
+        <input type="password" id="checkPassword" ref="checkPassword" v-model="checkPassword" class="form-control" maxlength="64" />
+      </div>
+      <div class="col" style="text-align: left">
+        <br />
+        <br />(確認用)
+      </div>
+    </div>
+    <hr />
+    <div class="row" align-v="center" align-h="start">
+      <div class="col-sm-2"></div>
+      <div class="col-auto">
+        <ExecuteButton type="update" @buttonClick="updateApi" />
+      </div>
+      <div></div>
     </div>
   </div>
 </template>
@@ -92,6 +90,7 @@ export default {
   },
   mounted: async function () {
     this.csrfToken = await this.getCsrfToken(this)
+    this.$nextTick(()=> this.$refs.loginPassword.focus())
   },
   methods: {
     updateApi: function () {

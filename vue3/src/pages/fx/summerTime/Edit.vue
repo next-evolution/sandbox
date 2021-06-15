@@ -7,7 +7,7 @@
     </div>
     <div class="container" v-show="isInput">
       <div class="row" align-v="center" align-h="start">
-        <div class="col-sm-2">夏時間編集フォーム</div>
+        <div class="col-sm-3">夏時間編集フォーム</div>
       </div>
       <hr />
       <div class="row" align-v="center" align-h="start">
@@ -21,11 +21,11 @@
         <div class="col-sm-2">
           <label for="applyStart" class="control-label text-nowrap">夏時間</label>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-3">
           <input type="date" v-model="summerTime.applyStart" ref="applyStart" class="form-control" placeholder="yyyy-MM-dd" />
         </div>
         <div class="col-sm-1">~</div>
-        <div class="col-sm-2">
+        <div class="col-sm-3">
           <input type="date" v-model="summerTime.applyEnd" ref="applyEnd" class="form-control" placeholder="yyyy-MM-dd" />
         </div>
       </div>
@@ -94,6 +94,7 @@ export default {
   },
   mounted: function () {
     this.isLoading = true
+    this.$refs.applyStart.focus()
     var vm = this
     this.axios
       .get(this.apiInfoSelect.url + '?apiCode=' + this.apiInfoSelect.apiCode + '&targetYear=' + this.$route.params.targetYear, {

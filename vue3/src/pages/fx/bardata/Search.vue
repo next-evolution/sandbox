@@ -1,72 +1,70 @@
 <template>
-  <div id="mainContent">
-    <Navigator :loading="isLoading" />
-    <div class="container">
-      <hr />
-      <div class="row">
-        <div class="col-auto align-self-center">足データ：{{ resultMessage }}</div>
-        <div class="col-auto">
-          <select v-model="currencyPairCode" ref="currencyPairCode" v-on:change="currencyPairChange" class="form-select" style="width: auto">
-            <option v-for="currencyPair in currencyPairList" v-bind:key="currencyPair.currencyPairCode" v-bind:value="currencyPair.currencyPairCode">
-              {{ currencyPair.currencyPairCode }}
-            </option>
-          </select>
-        </div>
-        <div class="col-auto">
-          <select v-model="pageSize" ref="pageSize" v-on:change="pageSizeChange" class="form-select" style="width: auto">
-            <option v-for="pageSize in pageSizeList" v-bind:key="pageSize" v-bind:value="pageSize">{{ pageSize }}</option>
-          </select>
-        </div>
-        <div class="col-md-auto align-self-center">
-          <button v-if="pageNo === 1" class="btn btn-secondary" style="margin-left: 10px" disabled>&lt;</button>
-          <button v-if="pageNo > 1" v-on:click="pageNoChange(-1)" class="btn btn-primary" style="margin-left: 10px">&lt;</button>
-          <span style="margin-left: 5px; margin-right: 5px">[ {{ pageNo }} / {{ totalPageCount }} ]</span>
-          <button v-if="totalPageCount <= pageNo" class="btn btn-secondary" style="margin-left: 1px" disabled>&gt;</button>
-          <button v-if="totalPageCount > pageNo" v-on:click="pageNoChange(1)" class="btn btn-primary" style="margin-left: 1px">&gt;</button>
-        </div>
-        <div class="col-auto">
-          <input v-model="frontDateBegin" placeholder="begin" size="10" maxlength="8" class="form-control" />
-        </div>
-        <div class="col-auto">
-          <input v-model="frontDateEnd" placeholder="end" size="10" maxlength="8" class="form-control" />
-        </div>
-        <div class="col-auto">
-          <button class="btn btn-primary" v-on:click="frontDateChange">Search</button>
-        </div>
+  <Navigator :loading="isLoading" />
+  <div class="container">
+    <hr />
+    <div class="row">
+      <div class="col-auto align-self-center">足データ：{{ resultMessage }}</div>
+      <div class="col-auto">
+        <select v-model="currencyPairCode" ref="currencyPairCode" v-on:change="currencyPairChange" class="form-select" style="width: auto">
+          <option v-for="currencyPair in currencyPairList" v-bind:key="currencyPair.currencyPairCode" v-bind:value="currencyPair.currencyPairCode">
+            {{ currencyPair.currencyPairCode }}
+          </option>
+        </select>
       </div>
-      <hr />
+      <div class="col-auto">
+        <select v-model="pageSize" ref="pageSize" v-on:change="pageSizeChange" class="form-select" style="width: auto">
+          <option v-for="pageSize in pageSizeList" v-bind:key="pageSize" v-bind:value="pageSize">{{ pageSize }}</option>
+        </select>
+      </div>
+      <div class="col-md-auto align-self-center">
+        <button v-if="pageNo === 1" class="btn btn-secondary" style="margin-left: 10px" disabled>&lt;</button>
+        <button v-if="pageNo > 1" v-on:click="pageNoChange(-1)" class="btn btn-primary" style="margin-left: 10px">&lt;</button>
+        <span style="margin-left: 5px; margin-right: 5px">[ {{ pageNo }} / {{ totalPageCount }} ]</span>
+        <button v-if="totalPageCount <= pageNo" class="btn btn-secondary" style="margin-left: 1px" disabled>&gt;</button>
+        <button v-if="totalPageCount > pageNo" v-on:click="pageNoChange(1)" class="btn btn-primary" style="margin-left: 1px">&gt;</button>
+      </div>
+      <div class="col-auto">
+        <input v-model="frontDateBegin" placeholder="begin" size="10" maxlength="8" class="form-control" />
+      </div>
+      <div class="col-auto">
+        <input v-model="frontDateEnd" placeholder="end" size="10" maxlength="8" class="form-control" />
+      </div>
+      <div class="col-auto">
+        <button class="btn btn-primary" v-on:click="frontDateChange">Search</button>
+      </div>
     </div>
-    <table class="table table-striped container">
-      <thead>
-        <tr>
-          <th>FrontDate</th>
-          <th>BarTime</th>
-          <th>Range Profit</th>
-          <th>Close Profit</th>
-          <th>High Profit</th>
-          <th>Low Profit</th>
-          <th>Open Price</th>
-          <th>High Price</th>
-          <th>Low Price</th>
-          <th>Close Price</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="barData in barDataList" v-bind:key="barData.barDateTime">
-          <td>{{ barData.frontDate }}({{ barData.dayOfWeek }})</td>
-          <td>{{ barData.barDateTime.replace(/-/g, '/').replace(/T/g, ' ') }}</td>
-          <td class="price">{{ barData.rangeProfit.toFixed(5) }}</td>
-          <td class="price">{{ barData.closeProfit.toFixed(5) }}</td>
-          <td class="price">{{ barData.highProfit.toFixed(5) }}</td>
-          <td class="price">{{ barData.lowProfit.toFixed(5) }}</td>
-          <td class="price">{{ barData.openPrice.toFixed(5) }}</td>
-          <td class="price">{{ barData.highPrice.toFixed(5) }}</td>
-          <td class="price">{{ barData.lowPrice.toFixed(5) }}</td>
-          <td class="price">{{ barData.closePrice.toFixed(5) }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <hr />
   </div>
+  <table class="table table-striped container">
+    <thead>
+      <tr>
+        <th>FrontDate</th>
+        <th>BarTime</th>
+        <th>Range Profit</th>
+        <th>Close Profit</th>
+        <th>High Profit</th>
+        <th>Low Profit</th>
+        <th>Open Price</th>
+        <th>High Price</th>
+        <th>Low Price</th>
+        <th>Close Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="barData in barDataList" v-bind:key="barData.barDateTime">
+        <td>{{ barData.frontDate }}({{ barData.dayOfWeek }})</td>
+        <td>{{ barData.barDateTime.replace(/-/g, '/').replace(/T/g, ' ') }}</td>
+        <td class="price">{{ barData.rangeProfit.toFixed(5) }}</td>
+        <td class="price">{{ barData.closeProfit.toFixed(5) }}</td>
+        <td class="price">{{ barData.highProfit.toFixed(5) }}</td>
+        <td class="price">{{ barData.lowProfit.toFixed(5) }}</td>
+        <td class="price">{{ barData.openPrice.toFixed(5) }}</td>
+        <td class="price">{{ barData.highPrice.toFixed(5) }}</td>
+        <td class="price">{{ barData.lowPrice.toFixed(5) }}</td>
+        <td class="price">{{ barData.closePrice.toFixed(5) }}</td>
+      </tr>
+    </tbody>
+  </table>
 </template>
 
 <style>
@@ -174,6 +172,7 @@ export default {
     this.currencyPairCode = 'USDJPY'
     this.setBarType()
     this.searchBarData()
+    this.$refs.currencyPairCode.focus()
   },
   updated: function () {
     if (this.$route.params.barType != this.barType) {
