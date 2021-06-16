@@ -1,15 +1,15 @@
 <template>
-  <teleport to="#modalBox">
-    <div v-if="isModalShow" class="modal">
+  <teleport to="#modalResultCode">
+    <div v-if="isModalShow" class="modalResultCode">
       <div>
-        <textarea cols="80" rows="15" ref="resultCode" v-model="resultCodeText" style="font-family: 'ＭＳ ゴシック', 'Monaco'; width: 100%; height: 500px"></textarea>
+        <textarea ref="resultCodeText" v-model="resultCodeText" @click="$refs.resultCodeText.select()"></textarea>
       </div>
     </div>
   </teleport>
 </template>
 
 <style>
-.modal {
+.modalResultCode {
   position: absolute;
   top: 0;
   right: 0;
@@ -24,7 +24,7 @@
   /* justify-content: center; */
 }
 
-.modal div {
+.modalResultCode div {
   /* display: flex;
   flex-direction: column;
   justify-content: top; */
@@ -32,8 +32,15 @@
   align-items: center;
   justify-content: center;
   background-color: #fcfcfc;
-  width: 90%;
+  width: 60%;
   height: 80%;
+}
+
+.modalResultCode div textarea {
+  font-family: 'ＭＳ ゴシック', 'Monaco';
+  resize: none;
+  width: 100%;
+  height: 100%;
 }
 </style>
 
@@ -49,11 +56,10 @@ export default {
   data: function () {
     return {
       isModalShow: true,
-      resultCodeText: this.resultCode
+      resultCodeText: this.resultCode,
     }
   },
   mounted: function () {
-    this.$refs.resultCode.select()
     document.onkeydown = (evt) => {
       evt = evt || window.event
       if (evt.keyCode == 27) {

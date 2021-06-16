@@ -1,12 +1,12 @@
 <template>
   <button v-if="list.length > 0" class="btn btn-dark btn-sm" @click="isModalShow = true">INDEX</button>
-  <teleport to="#modalBox">
-    <div v-if="isModalShow" class="modal">
+  <teleport to="#modalIndexInfo">
+    <div v-if="isModalShow" class="modalIndexInfo">
       <div>
         <div class="row">
-          <div class="col-sm-10 text-left">Index Information</div>
-          <div class="col-sm-2 text-right">
-            <button ref="btnClose" class="btn btn-dark btn-sm" @click="isModalShow = false">×</button>
+          <div class="col-sm-11 text-left">Index Information</div>
+          <div class="col-sm-1">
+            <button ref="btnClose" class="btn btn-dark btn-sm float-right" @click="isModalShow = false">×</button>
           </div>
         </div>
         <div class="row"><hr/></div>
@@ -31,10 +31,10 @@
             <tbody>
               <tr v-for="indexInfo in list" :key="indexInfo.No">
                 <td>{{ indexInfo.indexName }}</td>
-                <td>{{ indexInfo.seqInIndex }}</td>
+                <td style="text-align: right;">{{ indexInfo.seqInIndex }}</td>
                 <td>{{ indexInfo.columnName }}</td>
                 <td>{{ indexInfo.nonUnique ? '' : 'UK' }}</td>
-                <td>{{ indexInfo.cardinality }}</td>
+                <td style="text-align: right;">{{ indexInfo.cardinality }}</td>
                 <td>{{ indexInfo.indexSchema }}</td>
                 <td>{{ indexInfo.tableSchema }}</td>
               </tr>
@@ -48,7 +48,7 @@
 </template>
 
 <style>
-.modal {
+.modalIndexInfo {
   position: absolute;
   top: 0;
   right: 0;
@@ -63,13 +63,13 @@
   /* justify-content: center; */
 }
 
-.modal div {
-  /* display: flex;
-  flex-direction: column;
-  justify-content: top; */
+.modalIndexInfo div {
   /* display: flex; */
-  align-items: center;
-  justify-content: center;
+  /* flex-direction: column; */
+  /* display: flex; */
+  /* align-items: center;
+  justify-content: center; */
+  justify-content: top;
   background-color: #fcfcfc;
   /* width: 90%;
   height: 80%; */

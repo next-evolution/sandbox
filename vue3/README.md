@@ -1,5 +1,13 @@
 # vue3
 
+# npm 経由でyarnをインストール
+# npm install -g yarn
+# yarnのバージョンを確認
+# yarn -v
+# yarnの初期設定
+# yarn init
+
+
 ## Project create
 ```
 vue create vue3
