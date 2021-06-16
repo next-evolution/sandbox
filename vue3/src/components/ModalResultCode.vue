@@ -1,7 +1,12 @@
 <template>
   <teleport to="#modalResultCode">
-    <div v-if="isModalShow" class="modalResultCode">
-      <div>
+    <div v-if="isModalResultCodeShow" class="modalResultCode">
+      <div class="resultCode">
+        <div>
+          <button ref="btnClose" class="btn btn-dark btn-sm float-right" @click="isModalResultCodeShow = false">
+            ×
+          </button>
+        </div>
         <textarea ref="resultCodeText" v-model="resultCodeText" @click="$refs.resultCodeText.select()"></textarea>
       </div>
     </div>
@@ -24,7 +29,7 @@
   /* justify-content: center; */
 }
 
-.modalResultCode div {
+.resultCode {
   /* display: flex;
   flex-direction: column;
   justify-content: top; */
@@ -32,7 +37,7 @@
   align-items: center;
   justify-content: center;
   background-color: #fcfcfc;
-  width: 60%;
+  width: 70%;
   height: 80%;
 }
 
@@ -55,7 +60,7 @@ export default {
   },
   data: function () {
     return {
-      isModalShow: true,
+      isModalResultCodeShow: true,
       resultCodeText: this.resultCode,
     }
   },
@@ -63,7 +68,7 @@ export default {
     document.onkeydown = (evt) => {
       evt = evt || window.event
       if (evt.keyCode == 27) {
-        this.isModalShow = false
+        this.isModalResultCodeShow = false
       }
     }
   },

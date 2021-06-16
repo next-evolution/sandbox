@@ -1,76 +1,76 @@
 <template>
-  <div id="mainContent">
-    <Navigator :loading="isLoading" />
+  <Navigator :loading="isLoading" />
 
-    <div class="container">
-      <hr />
-      <div class="row">
-        <div class="col-auto">
-          <select v-model="schemaName" ref="schemaName" v-on:change="schemaChange" class="form-select" style="width: auto">
-            <option v-for="schema in schemaList" :key="schema" :value="schema">{{ schema }}</option>
-          </select>
-        </div>
-        <div class="col-auto">
-          <select v-model="tableName" ref="tableName" v-on:change="tableChange" class="form-select" style="width: auto">
-            <option v-for="tableInfo in tableInfoList" :key="tableInfo.tableName" :value="tableInfo.tableName">
-              {{ tableInfo.tableName }}
-            </option>
-          </select>
-        </div>
-        <div class="col-auto align-self-center">{{ resultMessage }}</div>
-        <div class="col-auto">
-          <button class="btn btn-primary btn-sm" @click="selectSql">SELECT</button>
-          <button class="btn btn-success btn-sm" @click="insertSql">INSERT</button>
-          <button class="btn btn-info btn-sm" @click="updateSql">UPDATE</button>
-          <button class="btn btn-primary btn-sm" @click="deleteSql">DELETE</button>
-          <button class="btn btn-success btn-sm" @click="memberSrc">member</button>
-          <button class="btn btn-info btn-sm" @click="propertySrc">property</button>
-          <ModalIndexInfo v-if="statisticsList.length > 0" :title="schemaName + '.' + tableName" :list="statisticsList" />
-        </div>
+  <div class="container">
+    <hr />
+    <div class="row">
+      <div class="col-auto">
+        <select v-model="schemaName" ref="schemaName" v-on:change="schemaChange" class="form-select" style="width: auto">
+          <option v-for="schema in schemaList" :key="schema" :value="schema">{{ schema }}</option>
+        </select>
       </div>
-
-      <hr />
-
-      <div class="row">
-        <div class="col-sm-10">
-          <input type="text" v-model="customTemplate" class="form-control" placeholder="custom code" />
-        </div>
-        <div class="col-auto">
-          <ExecuteButton type="execute" @buttonClick="customSrc" />
-        </div>
+      <div class="col-auto">
+        <select v-model="tableName" ref="tableName" v-on:change="tableChange" class="form-select" style="width: auto">
+          <option v-for="tableInfo in tableInfoList" :key="tableInfo.tableName" :value="tableInfo.tableName">
+            {{ tableInfo.tableName }}
+          </option>
+        </select>
       </div>
-
-      <hr />
-
-      <table id="responseTable" class="table table-striped table-bordered">
-        <thead class="table-dark">
-          <tr>
-            <th style="width: 1%; text-align: center">No</th>
-            <th style="width: 1%; text-align: center">key</th>
-            <th>Name</th>
-            <th>Type</th>
-            <th style="width: 1%; text-align: center">length</th>
-            <th style="width: 1%; text-align: center">Null</th>
-            <th>comment</th>
-            <th>default</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="columnInfo in columnInfoList" :key="columnInfo.columnNo">
-            <td style="text-align: right">{{ columnInfo.columnNo }}</td>
-            <td style="text-align: center">{{ columnInfo.keyName }}</td>
-            <td>{{ columnInfo.columnName }}</td>
-            <td>{{ columnInfo.columnType }}</td>
-            <td style="text-align: right">{{ columnInfo.columnLength }}</td>
-            <td style="text-align: center">{{ columnInfo.required ? '' : '〇' }}</td>
-            <td>{{ columnInfo.columnComment }}</td>
-            <td>{{ columnInfo.columnDefault }}</td>
-          </tr>
-        </tbody>
-      </table>
-      <ModalResultCode v-if="isShowResultCode" :resultCode="resultCode" />
+      <div class="col-auto align-self-center">{{ resultMessage }}</div>
+      <div class="col-auto">
+        <button class="btn btn-primary btn-sm" @click="selectSql">SELECT</button>
+        <button class="btn btn-success btn-sm" @click="insertSql">INSERT</button>
+        <button class="btn btn-info btn-sm" @click="updateSql">UPDATE</button>
+        <button class="btn btn-primary btn-sm" @click="deleteSql">DELETE</button>
+        <button class="btn btn-success btn-sm" @click="memberSrc">member</button>
+        <button class="btn btn-info btn-sm" @click="propertySrc">property</button>
+        <ModalIndexInfo v-if="statisticsList.length > 0" :title="schemaName + '.' + tableName" :list="statisticsList" />
+      </div>
     </div>
+
+    <hr />
+
+    <div class="row">
+      <div class="col-sm-10">
+        <input type="text" v-model="customTemplate" class="form-control" placeholder="custom code" />
+      </div>
+      <div class="col-auto">
+        <ExecuteButton type="execute" @buttonClick="customSrc" />
+      </div>
+    </div>
+
+    <hr />
+
+    <table id="responseTable" class="table table-striped table-bordered">
+      <thead class="table-dark">
+        <tr>
+          <th style="width: 1%; text-align: center">No</th>
+          <th style="width: 1%; text-align: center">key</th>
+          <th>Name</th>
+          <th>Type</th>
+          <th style="width: 1%; text-align: center">length</th>
+          <th style="width: 1%; text-align: center">Null</th>
+          <th>comment</th>
+          <th>default</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="columnInfo in columnInfoList" :key="columnInfo.columnNo">
+          <td style="text-align: right">{{ columnInfo.columnNo }}</td>
+          <td style="text-align: center">{{ columnInfo.keyName }}</td>
+          <td>{{ columnInfo.columnName }}</td>
+          <td>{{ columnInfo.columnType }}</td>
+          <td style="text-align: right">{{ columnInfo.columnLength }}</td>
+          <td style="text-align: center">{{ columnInfo.required ? '' : '〇' }}</td>
+          <td>{{ columnInfo.columnComment }}</td>
+          <td>{{ columnInfo.columnDefault }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <ModalResultCode v-if="isShowResultCode" :resultCode="resultCode" />
   </div>
+  <div id="modalIndexInfo"></div>
+  <div id="modalResultCode"></div>
 </template>
 
 <style>

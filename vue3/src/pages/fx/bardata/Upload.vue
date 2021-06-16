@@ -245,11 +245,15 @@ export default {
       }
       this.isComplete = this.barDataCsvInfoList.length === okCount
       if (this.isComplete) {
-        this.resultMessage = '( ^ ^ ) Csv Upload Complete ( ^ ^ )'
-        alert('Csv Upload Complete')
+        this.$nextTick(function () {
+          this.resultMessage = '( ^ ^ ) Csv Upload Complete ( ^ ^ )'
+          alert('Csv Upload Complete')
+        })
       } else {
-        this.resultMessage = '( - o - ) Csv Upload Error. ( - o - )'
-        alert('Csv Upload Error')
+        this.$nextTick(function () {
+          this.resultMessage = '( - o - ) Csv Upload Error. ( - o - )'
+          alert('Csv Upload Error')
+        })
       }
     },
     reload: function () {

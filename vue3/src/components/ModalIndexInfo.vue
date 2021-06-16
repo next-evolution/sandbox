@@ -1,12 +1,12 @@
 <template>
-  <button v-if="list.length > 0" class="btn btn-dark btn-sm" @click="isModalShow = true">INDEX</button>
+  <button v-if="list.length > 0" class="btn btn-dark btn-sm" @click="isModalIndexInfoShow = true">INDEX</button>
   <teleport to="#modalIndexInfo">
-    <div v-if="isModalShow" class="modalIndexInfo">
+    <div v-if="isModalIndexInfoShow" class="modalIndexInfo">
       <div>
         <div class="row">
           <div class="col-sm-11 text-left">Index Information</div>
           <div class="col-sm-1">
-            <button ref="btnClose" class="btn btn-dark btn-sm float-right" @click="isModalShow = false">×</button>
+            <button ref="btnClose" class="btn btn-dark btn-sm float-right" @click="isModalIndexInfoShow = false">×</button>
           </div>
         </div>
         <div class="row"><hr/></div>
@@ -91,14 +91,14 @@ export default {
   },
   data: function () {
     return {
-      isModalShow: false,
+      isModalIndexInfoShow: false,
     }
   },
   mounted: function () {
     document.onkeydown = (evt) => {
       evt = evt || window.event
       if (evt.keyCode == 27) {
-        this.isModalShow = false
+        this.isModalIndexInfoShow = false
       }
     }
   },
