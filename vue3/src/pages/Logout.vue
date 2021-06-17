@@ -1,10 +1,8 @@
 <template>
-  <div id="mainContainer">
-    <Navigator :loading="isLoading" />
-    <div class="container" v-show="!isLoading">
-      <h3>ログアウトしました。</h3>
-      <router-link to="/">HOME</router-link>
-    </div>
+  <Navigator :loading="isLoading" />
+  <div class="container" v-show="!isLoading">
+    <h3>ログアウトしました。</h3>
+    <router-link to="/">HOME</router-link>
   </div>
 </template>
 

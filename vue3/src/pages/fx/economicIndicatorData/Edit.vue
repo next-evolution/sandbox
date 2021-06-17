@@ -1,100 +1,91 @@
 <template>
-  <div id="mainContent">
-    <Navigator :back-page="backPage" :loading="isLoading" />
-    <div id="resultMessage">{{ resultMessage }}</div>
-    <div v-show="!isInput">
-      <router-link to="/fx/economicIndicatorData">戻る</router-link>
+  <Navigator :back-page="backPage" :loading="isLoading" />
+  <div id="resultMessage">{{ resultMessage }}</div>
+  <div v-show="!isInput">
+    <router-link to="/fx/economicIndicatorData">戻る</router-link>
+  </div>
+  <div class="container" v-if="isInput">
+    <div class="row" align-v="center" align-h="start">
+      <div class="col">経済指標データ登録</div>
     </div>
-    <div class="container" v-if="isInput">
-      <div class="row" align-v="center" align-h="start">
-        <div class="col">経済指標データ登録</div>
+    <hr />
+    <div class="row" align-v="center" align-h="start">
+      <div class="col-sm-2">
+        <label for="countryCode" class="control-label text-nowrap">国コード</label>
       </div>
-      <hr />
-      <div class="row" align-v="center" align-h="start">
-        <div class="col-sm-2">
-          <label for="countryCode" class="control-label text-nowrap">国コード</label>
-        </div>
-        <div class="col-auto">
-          <select v-model="countryCode" ref="countryCode" v-on:change="changeCountryCode" class="form-select">
-            <option v-for="country in countryList" :key="country.countryCode" :value="country.countryCode">{{ country.countryName }}</option>
-          </select>
-        </div>
+      <div class="col-auto">
+        <select v-model="countryCode" ref="countryCode" v-on:change="changeCountryCode" class="form-select">
+          <option v-for="country in countryList" :key="country.countryCode" :value="country.countryCode">{{ country.countryName }}</option>
+        </select>
       </div>
-      <hr />
-      <div class="row" align-v="center" align-h="start">
-        <div class="col-sm-2">
-          <label for="economicIndicatorId" class="control-label text-nowrap">経済指標</label>
-        </div>
-        <div class="col-auto">
-          <select v-model="economicIndicatorData.economicIndicatorId" ref="economicIndicatorId" class="form-select">
-            <option
-              v-for="economicIndicator in economicIndicatorList"
-              :key="economicIndicator.economicIndicatorId"
-              :value="economicIndicator.economicIndicatorId"
-            >
-              {{ economicIndicator.economicIndicatorName }}
-            </option>
-          </select>
-        </div>
+    </div>
+    <hr />
+    <div class="row" align-v="center" align-h="start">
+      <div class="col-sm-2">
+        <label for="economicIndicatorId" class="control-label text-nowrap">経済指標</label>
       </div>
-      <hr />
-      <div class="row" align-v="center" align-h="start">
-        <div class="col-sm-2">
-          <label for="publicationDate" class="control-label text-nowrap">発表日時</label>
-        </div>
-        <div class="col-auto">
-          <input type="date" v-model="economicIndicatorData.publicationDate" ref="publicationDate" placeholder="yyyyMMdd" class="form-control" />
-        </div>
-        <div class="col-auto">
-          <input
-            type="time"
-            step="300"
-            v-model="economicIndicatorData.publicationTime"
-            ref="publicationTime"
-            placeholder="HHmm"
-            class="form-control"
-          />
-        </div>
+      <div class="col-auto">
+        <select v-model="economicIndicatorData.economicIndicatorId" ref="economicIndicatorId" class="form-select">
+          <option
+            v-for="economicIndicator in economicIndicatorList"
+            :key="economicIndicator.economicIndicatorId"
+            :value="economicIndicator.economicIndicatorId"
+          >
+            {{ economicIndicator.economicIndicatorName }}
+          </option>
+        </select>
       </div>
-      <hr />
-      <div class="row" align-v="center" align-h="start">
-        <div class="col-sm-2">
-          <label for="subTitle" class="control-label text-nowrap">サブタイトル</label>
-        </div>
-        <div class="col-sm-3">
-          <input type="text" v-model="economicIndicatorData.subTitle" placeholder="subtitle" class="form-control" />
-        </div>
+    </div>
+    <hr />
+    <div class="row" align-v="center" align-h="start">
+      <div class="col-sm-2">
+        <label for="publicationDate" class="control-label text-nowrap">発表日時</label>
       </div>
-      <hr />
-      <div class="row" align-v="center" align-h="start">
-        <div class="col-sm-2">
-          <label for="resultValue" class="control-label text-nowrap">発表値</label>
-        </div>
-        <div class="col-sm-2">
-          <input type="text" v-model="economicIndicatorData.resultValue" ref="resultValue" placeholder="発表値" class="form-control" />
-        </div>
-        <div class="col-sm-2">
-          <input type="text" v-model="economicIndicatorData.forecastValue" placeholder="予想" class="form-control" />
-        </div>
-        <div class="col-sm-2">
-          <input type="text" v-model="economicIndicatorData.previousValue" placeholder="前回" class="form-control" />
-        </div>
+      <div class="col-auto">
+        <input type="date" v-model="economicIndicatorData.publicationDate" ref="publicationDate" placeholder="yyyyMMdd" class="form-control" />
       </div>
-      <hr />
-      <div class="row" align-v="center" align-h="start">
-        <div class="col-sm-2">
-          <label for="memo" class="control-label text-nowrap">メモ</label>
-        </div>
-        <div class="col-auto">
-          <textarea v-model="economicIndicatorData.memo" placeholder="memo..." cols="80" rows="3" class="form-control"></textarea>
-        </div>
+      <div class="col-auto">
+        <input type="time" step="300" v-model="economicIndicatorData.publicationTime" ref="publicationTime" placeholder="HHmm" class="form-control" />
       </div>
-      <hr />
-      <div class="row" align-v="center" align-h="start">
-        <div class="col-sm-2"></div>
-        <div class="col-auto">
-          <ExecuteButton type="update" @buttonClick="updateApi" />
-        </div>
+    </div>
+    <hr />
+    <div class="row" align-v="center" align-h="start">
+      <div class="col-sm-2">
+        <label for="subTitle" class="control-label text-nowrap">サブタイトル</label>
+      </div>
+      <div class="col-sm-3">
+        <input type="text" v-model="economicIndicatorData.subTitle" placeholder="subtitle" class="form-control" />
+      </div>
+    </div>
+    <hr />
+    <div class="row" align-v="center" align-h="start">
+      <div class="col-sm-2">
+        <label for="resultValue" class="control-label text-nowrap">発表値</label>
+      </div>
+      <div class="col-sm-2">
+        <input type="text" v-model="economicIndicatorData.resultValue" ref="resultValue" placeholder="発表値" class="form-control" />
+      </div>
+      <div class="col-sm-2">
+        <input type="text" v-model="economicIndicatorData.forecastValue" placeholder="予想" class="form-control" />
+      </div>
+      <div class="col-sm-2">
+        <input type="text" v-model="economicIndicatorData.previousValue" placeholder="前回" class="form-control" />
+      </div>
+    </div>
+    <hr />
+    <div class="row" align-v="center" align-h="start">
+      <div class="col-sm-2">
+        <label for="memo" class="control-label text-nowrap">メモ</label>
+      </div>
+      <div class="col-auto">
+        <textarea v-model="economicIndicatorData.memo" placeholder="memo..." cols="80" rows="3" class="form-control"></textarea>
+      </div>
+    </div>
+    <hr />
+    <div class="row" align-v="center" align-h="start">
+      <div class="col-sm-2"></div>
+      <div class="col-auto">
+        <ExecuteButton type="update" @buttonClick="updateApi" />
       </div>
     </div>
   </div>
@@ -304,7 +295,7 @@ export default {
             vm.isInput = false
             vm.resultMessage = response.data.messageText
           }
-          alert(response.data.messageText)
+          vm.$nextTick(alert(response.data.messageText))
         })
         .catch(function (error) {
           console.log(error)

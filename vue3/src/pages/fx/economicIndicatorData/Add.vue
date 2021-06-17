@@ -283,7 +283,7 @@ export default {
             vm.resultMessage = response.data.messageText
             vm.isInput = false
           }
-          alert(response.data.messageText)
+          vm.$nextTick(alert(response.data.messageText))
         })
         .catch(function (error) {
           console.log(error)

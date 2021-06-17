@@ -1,43 +1,41 @@
 <template>
-  <div id="mainContent">
-    <Navigator :back-page="backPage" :loading="isLoading" />
-    <div class="container">
-      <div class="row">
-        <div class="col-auto">
-          <h3>InterfaceExcel</h3>
-        </div>
-        <div class="col-auto">
-          <label class="btn btn-primary"
-            >Excel Upload
-            <input type="file" multiple ref="uploadFiles" accept=".xlsx" @change="uploadExcel" style="display: none" />
-          </label>
-        </div>
-        <div class="col-auto">{{ resultMessage }}</div>
+  <Navigator :back-page="backPage" :loading="isLoading" />
+  <div class="container">
+    <div class="row">
+      <div class="col-auto">
+        <h3>InterfaceExcel</h3>
       </div>
-
-      <table class="table table-striped table-sm" style="max-height: 90%">
-        <tbody>
-          <tr>
-            <th>Book</th>
-            <th>ApiCode</th>
-            <th>read</th>
-            <th>import</th>
-            <th>upload</th>
-            <th>import</th>
-            <th>message</th>
-          </tr>
-          <tr v-for="excelImportResult in excelImportResultList" :key="excelImportResult.bookName + excelImportResult.sheetName">
-            <td>{{ excelImportResult.bookName }}</td>
-            <td>{{ excelImportResult.sheetName }}</td>
-            <td align="right">{{ excelImportResult.readCount }}</td>
-            <td align="right">{{ excelImportResult.importCount }}</td>
-            <td>{{ excelImportResult.uploadResult }}</td>
-            <td>{{ excelImportResult.importResult }}</td>
-            <td>{{ excelImportResult.message }}</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="col-auto">
+        <label class="btn btn-primary"
+          >Excel Upload
+          <input type="file" multiple ref="uploadFiles" accept=".xlsx" @change="uploadExcel" style="display: none" />
+        </label>
+      </div>
+      <div class="col-auto">{{ resultMessage }}</div>
     </div>
+
+    <table class="table table-striped table-sm" style="max-height: 90%">
+      <tbody>
+        <tr>
+          <th>Book</th>
+          <th>ApiCode</th>
+          <th>read</th>
+          <th>import</th>
+          <th>upload</th>
+          <th>import</th>
+          <th>message</th>
+        </tr>
+        <tr v-for="excelImportResult in excelImportResultList" :key="excelImportResult.bookName + excelImportResult.sheetName">
+          <td>{{ excelImportResult.bookName }}</td>
+          <td>{{ excelImportResult.sheetName }}</td>
+          <td align="right">{{ excelImportResult.readCount }}</td>
+          <td align="right">{{ excelImportResult.importCount }}</td>
+          <td>{{ excelImportResult.uploadResult }}</td>
+          <td>{{ excelImportResult.importResult }}</td>
+          <td>{{ excelImportResult.message }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 

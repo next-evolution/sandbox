@@ -1,40 +1,38 @@
 <template>
-  <div id="mainContent">
-    <Navigator :back-page="backPage" :loading="isLoading" />
-    <div id="resultMessage">{{ resultMessage }}</div>
-    <div v-show="!isInput">
-      <router-link :to="backPage">戻る</router-link>
+  <Navigator :back-page="backPage" :loading="isLoading" />
+  <div id="resultMessage">{{ resultMessage }}</div>
+  <div v-show="!isInput">
+    <router-link :to="backPage">戻る</router-link>
+  </div>
+  <div class="container" v-show="isInput">
+    <div class="row" align-v="center" align-h="start">
+      <div class="col-sm-3">夏時間編集フォーム</div>
     </div>
-    <div class="container" v-show="isInput">
-      <div class="row" align-v="center" align-h="start">
-        <div class="col-sm-3">夏時間編集フォーム</div>
+    <hr />
+    <div class="row" align-v="center" align-h="start">
+      <div class="col-sm-2">
+        <label for="targetYear" class="control-label text-nowrap">対象年度</label>
       </div>
-      <hr />
-      <div class="row" align-v="center" align-h="start">
-        <div class="col-sm-2">
-          <label for="targetYear" class="control-label text-nowrap">対象年度</label>
-        </div>
-        <div class="col-sm-2">{{ summerTime.targetYear }}</div>
+      <div class="col-sm-2">{{ summerTime.targetYear }}</div>
+    </div>
+    <hr />
+    <div class="row" align-v="center" align-h="start">
+      <div class="col-sm-2">
+        <label for="applyStart" class="control-label text-nowrap">夏時間</label>
       </div>
-      <hr />
-      <div class="row" align-v="center" align-h="start">
-        <div class="col-sm-2">
-          <label for="applyStart" class="control-label text-nowrap">夏時間</label>
-        </div>
-        <div class="col-sm-3">
-          <input type="date" v-model="summerTime.applyStart" ref="applyStart" class="form-control" placeholder="yyyy-MM-dd" />
-        </div>
-        <div class="col-sm-1">~</div>
-        <div class="col-sm-3">
-          <input type="date" v-model="summerTime.applyEnd" ref="applyEnd" class="form-control" placeholder="yyyy-MM-dd" />
-        </div>
+      <div class="col-sm-3">
+        <input type="date" v-model="summerTime.applyStart" ref="applyStart" class="form-control" placeholder="yyyy-MM-dd" />
       </div>
-      <hr />
-      <div class="row" align-v="center" align-h="start">
-        <div class="col-sm-2"></div>
-        <div class="col-sm-2">
-          <ExecuteButton type="update" @buttonClick="updateApi" />
-        </div>
+      <div class="col-sm-1">~</div>
+      <div class="col-sm-3">
+        <input type="date" v-model="summerTime.applyEnd" ref="applyEnd" class="form-control" placeholder="yyyy-MM-dd" />
+      </div>
+    </div>
+    <hr />
+    <div class="row" align-v="center" align-h="start">
+      <div class="col-sm-2"></div>
+      <div class="col-sm-2">
+        <ExecuteButton type="update" @buttonClick="updateApi" />
       </div>
     </div>
   </div>
@@ -157,11 +155,11 @@ export default {
         .then(function (response) {
           console.log(response)
           vm.apiResponse = response.data
-          alert(vm.apiResponse.messageText)
           if (vm.apiInfo.messageCode === vm.apiResponse.messageCode) {
             vm.resultMessage = vm.apiResponse.messageText
             vm.isInput = false
           }
+          vm.$nextTick(alert(response.data.messageText))
         })
         .catch(function (error) {
           console.log(error)

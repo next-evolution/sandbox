@@ -1,43 +1,41 @@
 <template>
-  <div id="mainContent">
-    <Navigator :back-page="backPage" :loading="isLoading" />
-    <div class="container">
-      <div class="row">
-        <div class="col-auto">
-          <h3>ApiExcel</h3>
-        </div>
-        <div class="col-auto">
-          <label class="btn btn-primary"
-            >Excel Upload
-            <input type="file" multiple ref="uploadFiles" accept=".xlsx" @change="uploadExcel" style="display: none" />
-          </label>
-        </div>
-        <div class="col-auto">{{ resultMessage }}</div>
+  <Navigator :back-page="backPage" :loading="isLoading" />
+  <div class="container">
+    <div class="row">
+      <div class="col-auto">
+        <h3>ApiExcel</h3>
       </div>
-
-      <table class="table table-striped table-sm">
-        <tbody>
-          <tr>
-            <th>Book</th>
-            <th>Sheet</th>
-            <th>readCount</th>
-            <th>importCount</th>
-            <th>upload</th>
-            <th>import</th>
-            <th>message</th>
-          </tr>
-          <tr v-for="excelImportResult in excelImportResultList" :key="excelImportResult.bookName + excelImportResult.sheetName">
-            <td>{{ excelImportResult.bookName }}</td>
-            <td>{{ excelImportResult.sheetName }}</td>
-            <td align="right">{{ excelImportResult.readCount }}</td>
-            <td align="right">{{ excelImportResult.importCount }}</td>
-            <td>{{ excelImportResult.uploadResult }}</td>
-            <td>{{ excelImportResult.importResult }}</td>
-            <td>{{ excelImportResult.message }}</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="col-auto">
+        <label class="btn btn-primary"
+          >Excel Upload
+          <input type="file" multiple ref="uploadFiles" accept=".xlsx" @change="uploadExcel" style="display: none" />
+        </label>
+      </div>
+      <div class="col-auto">{{ resultMessage }}</div>
     </div>
+
+    <table class="table table-striped table-sm">
+      <tbody>
+        <tr>
+          <th>Book</th>
+          <th>Sheet</th>
+          <th>readCount</th>
+          <th>importCount</th>
+          <th>upload</th>
+          <th>import</th>
+          <th>message</th>
+        </tr>
+        <tr v-for="excelImportResult in excelImportResultList" :key="excelImportResult.bookName + excelImportResult.sheetName">
+          <td>{{ excelImportResult.bookName }}</td>
+          <td>{{ excelImportResult.sheetName }}</td>
+          <td align="right">{{ excelImportResult.readCount }}</td>
+          <td align="right">{{ excelImportResult.importCount }}</td>
+          <td>{{ excelImportResult.uploadResult }}</td>
+          <td>{{ excelImportResult.importResult }}</td>
+          <td>{{ excelImportResult.message }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
@@ -218,7 +216,6 @@ export default {
             }
           })
           .catch(function (error) {
-            alert(error)
             console.log(error)
             vm.excelImportResultList[idx].importResult = 'FATAL'
             vm.excelImportResultList[idx].message = error
@@ -236,11 +233,16 @@ export default {
         }
       }
       if (this.excelImportResultList.length === okCount) {
-        this.resultMessage = '( ^ ^ ) Excel Import Complete ( ^ ^ )'
+        this.$nextTick(function () {
+          this.resultMessage = '( ^ ^ ) Excel Import Complete ( ^ ^ )'
+          alert(this.resultMessage)
+        })
       } else {
-        this.resultMessage = '( - o - ) Excel Import Error. ( - o - )'
+        this.$nextTick(function () {
+          this.resultMessage = '( - o - ) Excel Import Error. ( - o - )'
+          alert(this.resultMessage)
+        })
       }
-      alert(this.resultMessage)
     },
   },
 }

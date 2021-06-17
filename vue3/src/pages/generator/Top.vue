@@ -1,6 +1,5 @@
 <template>
   <Navigator :loading="isLoading" />
-
   <div class="container">
     <hr />
     <div class="row">

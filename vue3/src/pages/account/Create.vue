@@ -225,7 +225,7 @@ export default {
             vm.$router.push('/account/activation')
           }
           vm.resultMessage = response.data.messageText
-          alert(response.data.messageText)
+          vm.$nextTick(alert(response.data.messageText))
         })
         .catch(function (error) {
           console.log(error)

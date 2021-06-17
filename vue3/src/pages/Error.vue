@@ -1,8 +1,7 @@
 <template>
-  <div id="mainContainer">
-    <Navigator />
-    <h1>Error</h1>
-  </div>
+  <Navigator />
+  <h1>Error</h1>
+  <router-link to="/">HOME</router-link>
 </template>
 
 <script>

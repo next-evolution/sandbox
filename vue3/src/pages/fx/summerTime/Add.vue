@@ -148,7 +148,7 @@ export default {
             vm.resultMessage = vm.apiResponse.messageText
             vm.isInput = false
           }
-          alert(vm.apiResponse.messageText)
+          vm.$nextTick(alert(response.data.messageText))
         })
         .catch(function (error) {
           console.log(error)

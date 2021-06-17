@@ -169,11 +169,16 @@ export default {
       }
       this.isComplete = this.generateResultList.length = okCount
       if (this.isComplete) {
-        this.resultMessage = '( ^ ^ ) Csv Upload Complete ( ^ ^ )'
+        this.$nextTick(function () {
+          this.resultMessage = '( ^ ^ ) Csv Upload Complete ( ^ ^ )'
+          alert(this.resultMessage)
+        })
       } else {
-        this.resultMessage = '( - o - ) Csv Upload Error. ( - o - )'
+        this.$nextTick(function () {
+          this.resultMessage = '( - o - ) Csv Upload Error. ( - o - )'
+          alert(this.resultMessage)
+        })
       }
-      vm.$nextTick(() => alert(this.resultMessage))
     },
   },
 }
