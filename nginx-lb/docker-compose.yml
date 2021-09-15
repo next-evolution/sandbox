@@ -1,0 +1,28 @@
+version: '3'
+services:
+  web:
+    container_name: web01
+    image: nginx:1.20
+    ports:
+      - 20080:80
+    volumes:
+      - ./web01/nginx.conf:/etc/nginx/nginx.conf
+      - ./web01/html:/usr/share/nginx/html
+      - ./web01/log:/var/log/nginx
+  api1:
+    container_name: api01
+    image: nginx:1.20
+    ports:
+      - 20081:80
+    volumes:
+      - ./api01/html:/usr/share/nginx/html
+      - ./api01/log:/var/log/nginx
+  api2:
+    container_name: api02
+    image: nginx:1.20
+    ports:
+      - 20082:80
+    volumes:
+      - ./api02/html:/usr/share/nginx/html
+      - ./api02/log:/var/log/nginx
+
