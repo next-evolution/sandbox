@@ -11,57 +11,56 @@ public class SamplePerformance {
 
     public static void main(String[] args) {
 
-        final int maxLoopCount = 1000000;
+        System.out.println("==============================");
 
-        final List<Integer> dataSet = new ArrayList<>();
+        final int maxLoopCount = 1000000;
+        final int divisionValue = 4;
+
+        System.out.println("maxLoopCount = " + String.format("%,d", maxLoopCount));
+
+        final List<Integer> sampleDataList = new ArrayList<>();
         for (int i = 1; i <= maxLoopCount; i++) {
-            dataSet.add(i);
+            sampleDataList.add(i);
         }
 
-        System.out.println("===============");
+        System.out.println("----- for");
 
-        System.out.println("開始:for");
         long startTime = System.currentTimeMillis();
-        long sumFor = 0;
-        for (Integer data : dataSet) {
-            if (data % 3 == 0) {
-                sumFor += data;
+        long sumResult = 0;
+        for (Integer data : sampleDataList) {
+            if (data % divisionValue == 0) {
+                sumResult += data;
             }
         }
-        System.out.println(sumFor);
+        System.out.println(sumResult);
         long endTime = System.currentTimeMillis();
-        System.out.println("終了:for");
         System.out.println("処理時間:" + (endTime - startTime) + "ms");
 
-
-        System.out.println("===============");
-        System.out.println("開始:stream");
+        System.out.println("----- stream");
         startTime = System.currentTimeMillis();
 
-        final long sumStream = dataSet.parallelStream()
-                                      .filter(entry -> entry % 3 == 0)
+        final long sumStream = sampleDataList.stream()
+                                      .filter(entry -> entry % divisionValue == 0)
                                       .mapToLong(entry -> entry)
                                       .sum();
 
         System.out.println(sumStream);
         endTime = System.currentTimeMillis();
-        System.out.println("終了:stream");
         System.out.println("処理時間:" + (endTime - startTime) + "ms");
 
-        System.out.println("===============");
+        System.out.println("----- parallelStream");
 
-        System.out.println("開始:parallelStream");
+
         startTime = System.currentTimeMillis();
-        final long parallelStream = dataSet.parallelStream()
-                                      .filter(entry -> entry % 3 == 0)
+        final long parallelStream = sampleDataList.parallelStream()
+                                      .filter(entry -> entry % divisionValue == 0)
                                       .mapToLong(entry -> entry)
                                       .sum();
         System.out.println(parallelStream);
         endTime = System.currentTimeMillis();
-        System.out.println("終了:stream");
         System.out.println("処理時間:" + (endTime - startTime) + "ms");
 
-        System.out.println("===============");
+        System.out.println("==============================");
     }
 
 }
